@@ -15,5 +15,5 @@ AI 정성 분석 리포트: Google Gemini API를 활용하여 조회된 기업 �
 입사를 위한 자기계발 액션플랜 제안
 
 
-.env 파일은 따로
+.env , CORPCODE.xml 따로
 
