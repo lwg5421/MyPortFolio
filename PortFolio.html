@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홍길동 | 끊임없이 성장하는 개발자 포트폴리오</title>
+    
+    <meta name="description" content="React와 Node.js에 강점을 가진 개발자 홍길동의 기술 스택, 프로젝트, 경력을 담은 포트폴리오입니다.">
+    <meta name="keywords" content="웹개발자, 프론트엔드, 백엔드, 포트폴리오, React, Node.js, 홍길동, 기업분석">
+    <meta name="author" content="홍길동">
+    
+    <meta property="og:title" content="홍길동 | 개발자 포트폴리오">
+    <meta property="og:description" content="기술로 더 나은 세상을 만드는 개발자, 홍길동의 포트폴리오를 만나보세요.">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=Hong+Gildong's+Portfolio">
+    <meta property="og:url" content="https://your-domain.com">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #f9f9f9; --section-bg-color: #ffffff; --text-color: #333; --subtext-color: #666; --accent-color: #007bff; --border-color: #eee; --shadow-color: rgba(0,0,0,0.05); --timeline-line-color: #e0e0e0;
+        }
+        body.dark-mode {
+            --bg-color: #1a1a1a; --section-bg-color: #2c2c2c; --text-color: #f0f0f0; --subtext-color: #a0a0a0; --border-color: #444; --shadow-color: rgba(0,0,0,0.2); --timeline-line-color: #555;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; background-color: var(--bg-color); color: var(--text-color); transition: background-color 0.3s, color 0.3s; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        a { text-decoration: none; color: var(--accent-color); }
+        section { padding: 80px 0; overflow-x: hidden; }
+        .page-section { display: none; }
+        .section-title { font-size: 2.8rem; text-align: center; margin-bottom: 60px; font-weight: 700; }
+        .header { background-color: var(--section-bg-color); box-shadow: 0 2px 4px var(--shadow-color); padding: 1rem 0; position: sticky; top: 0; z-index: 1000; }
+        .header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo a { color: var(--text-color); font-size: 1.6rem; font-weight: bold; cursor: pointer; }
+        .navigation ul { list-style: none; display: flex; gap: 25px; }
+        .navigation a { color: var(--subtext-color); font-weight: 500; font-size: 1rem; padding-bottom: 5px; border-bottom: 2px solid transparent; cursor: pointer; }
+        .navigation a:hover, .navigation a.active { color: var(--accent-color); border-bottom-color: var(--accent-color); }
+        .header-right { display: flex; align-items: center; gap: 20px; }
+        .menu-toggle-btn, .dark-mode-toggle { background: none; border: none; cursor: pointer; color: var(--text-color); font-size: 1.5rem; }
+        .menu-toggle-btn { display: none; }
+        
+        #hero { background-color: var(--section-bg-color); text-align: center; display: flex; align-items: center; justify-content: center; min-height: 70vh; }
+        #hero .hero-content h1 { font-size: 4rem; margin-bottom: 15px; font-weight: 800; }
+        #hero .hero-content .subtitle { font-size: 1.5rem; color: var(--subtext-color); min-height: 2.4rem; }
+        
+        .skills-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 25px; }
+        .skill-category { background-color: var(--section-bg-color); border: 1px solid var(--border-color); border-radius: 12px; padding: 30px; min-width: 280px; text-align: center; box-shadow: 0 4px 8px var(--shadow-color); }
+        .skill-icons { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
+        .skill-icon i { font-size: 3rem; margin-bottom: 8px; }
+        .fa-html5 { color: #e34f26; } .fa-css3-alt { color: #1572b6; } .fa-js { color: #f7df1e; } .fa-react { color: #61dafb; } .fa-node-js { color: #339933; } .fa-github { color: var(--text-color); }
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; }
+        .timeline::after { content: ''; position: absolute; width: 4px; background-color: var(--timeline-line-color); top: 0; bottom: 0; left: 50%; margin-left: -2px; }
+        .timeline-item { padding: 10px 40px; position: relative; width: 50%; }
+        .timeline-item.left { left: 0; }
+        .timeline-item.right { left: 50%; }
+        .timeline-item::after { content: ''; position: absolute; width: 20px; height: 20px; right: -10px; background-color: var(--section-bg-color); border: 4px solid var(--accent-color); top: 15px; border-radius: 50%; z-index: 1; }
+        .right::after { left: -10px; }
+        .timeline-content { padding: 20px 30px; background-color: var(--section-bg-color); border: 1px solid var(--border-color); border-radius: 8px; }
+        .filter-buttons { text-align: center; margin-bottom: 40px; }
+        .filter-btn { background: none; border: 2px solid var(--border-color); color: var(--subtext-color); padding: 8px 20px; margin: 5px; border-radius: 20px; cursor: pointer; font-weight: 500; }
+        .filter-btn.active, .filter-btn:hover { background-color: var(--accent-color); color: #fff; border-color: var(--accent-color); }
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .project-card { background-color: var(--section-bg-color); border: 1px solid var(--border-color); border-radius: 12px; box-shadow: 0 4px 8px var(--shadow-color); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .project-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px var(--shadow-color); }
+        .project-card.hide { display: none; }
+        .project-card img { width: 100%; height: 200px; object-fit: cover; display: block; }
+        .project-card-content { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
+        .project-card-content h3 { font-size: 1.3rem; margin-bottom: 10px; }
+        .project-card-content p { color: var(--subtext-color); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
+        .read-more-btn { font-weight: 600; cursor: pointer; align-self: flex-start; margin-top: auto; padding-top: 10px; transition: color 0.2s; }
+        .read-more-btn:hover { color: var(--text-color); }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .modal-content { background-color: var(--section-bg-color); padding: 30px; border-radius: 8px; width: 90%; max-width: 700px; max-height: 80vh; overflow-y: auto; position: relative; }
+        .modal-close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; color: var(--subtext-color); cursor: pointer; }
+        .modal-overlay.active { display: flex; }
+        .search-bar { display: flex; max-width: 600px; margin: 0 auto 40px; gap: 10px; }
+        #company-search-input { flex-grow: 1; padding: 12px; font-size: 1rem; border: 1px solid var(--border-color); border-radius: 8px; background-color: var(--bg-color); color: var(--text-color); }
+        #company-search-btn { padding: 12px 20px; background-color: var(--accent-color); color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .analysis-content.hidden { display: none; }
+        #analysis-status { text-align: center; font-weight: 500; color: var(--subtext-color); min-height: 1.5rem; }
+        #interview-form { max-width: 800px; margin: 0 auto 40px auto; background-color: var(--section-bg-color); padding: 30px; border-radius: 12px; box-shadow: 0 4px 8px var(--shadow-color); }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .form-group.full-width { grid-column: 1 / -1; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 500; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); background-color: var(--bg-color); color: var(--text-color); font-size: 1rem; }
+        .form-status { text-align: center; margin-top: 15px; font-weight: 500; min-height: 1.5rem; transition: color 0.3s; }
+        .form-status.success { color: #28a745; }
+        .form-status.error { color: #dc3545; }
+        #interview-board { max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .interview-card { background-color: var(--section-bg-color); padding: 25px; border-radius: 8px; border-left: 5px solid var(--accent-color); box-shadow: 0 4px 8px var(--shadow-color); position: relative; }
+        .interview-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .interview-card-header h4 { font-size: 1.5rem; margin: 0; }
+        .interview-card-meta { text-align: right; color: var(--subtext-color); font-size: 0.9rem; }
+        .interview-card-body p { white-space: pre-wrap; margin-top: 10px; }
+        .interview-card-body strong { display: block; margin-top: 15px; font-size: 1.1rem; color: var(--text-color); }
+        .delete-interview-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--subtext-color); font-size: 1.2rem; cursor: pointer; }
+        .analysis-section { margin-bottom: 50px; }
+        .analysis-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .analysis-table th, .analysis-table td { padding: 12px 15px; border: 1px solid var(--border-color); text-align: left; }
+        .analysis-table th { background-color: var(--bg-color); width: 25%; font-weight: 600; }
+        .swot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .swot-card { background: var(--section-bg-color); border: 1px solid var(--border-color); padding: 20px; border-radius: 8px; }
+        .footer { background-color: var(--section-bg-color); padding: 40px 0; text-align: center; border-top: 1px solid var(--border-color); }
+        #back-to-top { position: fixed; bottom: 30px; right: 30px; background-color: var(--accent-color); color: #fff; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 1.5rem; cursor: pointer; display: none; opacity: 0; z-index: 100; }
+        #back-to-top.show { display: block; opacity: 1; }
+        @media (max-width: 768px) {
+            #hero .hero-content h1 { font-size: 2.5rem; }
+            .menu-toggle-btn { display: block; }
+            .navigation { position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--section-bg-color); display: none; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-in-out; }
+            .navigation.active { display: block; max-height: 500px; }
+            .navigation ul { flex-direction: column; text-align: center; }
+            .navigation ul li { padding: 15px 0; border-top: 1px solid var(--border-color); }
+            .timeline::after { left: 20px; }
+            .timeline-item { width: 100%; padding-left: 60px; padding-right: 10px; }
+            .timeline-item.right, .timeline-item.left { left: 0%; }
+            .timeline-item::after { left: 10px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .analysis-table th { width: 35%; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo"><a data-target="home">HGD</a></h1>
+            <div class="header-right">
+                <nav class="navigation">
+                    <ul>
+                        <li><a data-target="home" class="active">소개</a></li>
+                        <li><a data-target="projects">프로젝트</a></li>
+                        <li><a data-target="analysis">기업 분석</a></li>
+                        <li><a data-target="interview">인터뷰 기록</a></li>
+                    </ul>
+                </nav>
+                <button class="dark-mode-toggle" aria-label="다크 모드 전환"><i class="fa-solid fa-circle-half-stroke"></i></button>
+                <button class="menu-toggle-btn" aria-label="메뉴 열기"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="home-section">
+            <div class="container" data-aos="fade-in">
+                <div class="hero-content">
+                    <h1>홍길동입니다.</h1>
+                    <p id="typing-subtitle" class="subtitle"></p>
+                </div>
+            </div>
+        </section>
+        <section id="skills" class="home-section">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Skills</h2>
+                <div class="skills-grid" data-aos="fade-up" data-aos-delay="100">
+                    <div class="skill-category"><h3>Frontend</h3><div class="skill-icons"><div class="skill-icon"><i class="fa-brands fa-html5"></i><p>HTML5</p></div><div class="skill-icon"><i class="fa-brands fa-css3-alt"></i><p>CSS3</p></div><div class="skill-icon"><i class="fa-brands fa-js"></i><p>JavaScript</p></div><div class="skill-icon"><i class="fa-brands fa-react"></i><p>React</p></div></div></div>
+                    <div class="skill-category"><h3>Backend & Tools</h3><div class="skill-icons"><div class="skill-icon"><i class="fa-brands fa-node-js"></i><p>Node.js</p></div><div class="skill-icon"><i class="fa-brands fa-github"></i><p>GitHub</p></div></div></div>
+                </div>
+            </div>
+        </section>
+        <section id="career" class="home-section">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Career</h2>
+                <div class="timeline">
+                    <div class="timeline-item left" data-aos="fade-right"><div class="timeline-content"><h3>(주)A회사 프론트엔드 개발자</h3><p class="date">2023.03 - 현재</p><p>React 기반의 웹 서비스 유지보수 및 신규 기능 개발을 담당하고 있습니다.</p></div></div>
+                    <div class="timeline-item right" data-aos="fade-left"><div class="timeline-content"><h3>B부트캠프 수료</h3><p class="date">2022.09 - 2023.02</p><p>웹 개발 풀스택 과정을 수료하며 다수의 팀 프로젝트를 진행했습니다.</p></div></div>
+                    <div class="timeline-item left" data-aos="fade-right"><div class="timeline-content"><h3>C대학교 컴퓨터공학과 졸업</h3><p class="date">2018.03 - 2022.08</p><p>자료구조, 알고리즘, 네트워크 등 CS 기본기를 다졌습니다.</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="page-section">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Projects</h2>
+                <div class="filter-buttons" data-aos="fade-up"><button class="filter-btn active" data-filter="all">전체</button><button class="filter-btn" data-filter="react">React</button><button class="filter-btn" data-filter="vanilla">Vanilla JS</button><button class="filter-btn" data-filter="toy">Toy Project</button></div>
+                <div class="project-grid"><div class="project-card" data-category="react" data-aos="fade-up"><img src="https://via.placeholder.com/400x250/007bff/fff?text=React+Project" alt="프로젝트 1"><div class="project-card-content"><h3>리액트 기반 대시보드</h3><p>React와 Chart.js를 사용한 데이터 시각화 대시보드입니다.</p><a class="read-more-btn" data-title="리액트 기반 대시보드" data-image="https://via.placeholder.com/800x500/007bff/fff?text=Project+1+Detail" data-description="[문제 정의] 복잡한 데이터를 사용자가 한눈에 파악할 수 있는 인터랙티브 대시보드가 필요했습니다.&#10;[나의 역할] UI/UX 설계부터 전체 프론트엔드 개발을 담당했습니다.&#10;[구현 과정] API 연동, 데이터 시각화, 상태 관리(Redux) 등을 구현했습니다.&#10;[배운 점] 대용량 데이터 처리 및 비동기 통신에 대한 깊은 이해를 얻었습니다.">자세히 보기 &rarr;</a></div></div><div class="project-card" data-category="vanilla toy" data-aos="fade-up" data-aos-delay="100"><img src="https://via.placeholder.com/400x250/28a745/fff?text=JS+Todo+App" alt="프로젝트 2"><div class="project-card-content"><h3>바닐라 JS 투두리스트</h3><p>JavaScript 기본기를 다지기 위해 만든 심플한 할 일 관리 앱입니다.</p><a class="read-more-btn" data-title="바닐라 JS 투두리스트" data-image="https://via.placeholder.com/800x500/28a745/fff?text=Project+2+Detail" data-description="[문제 정의] JS의 기본 개념인 DOM 조작과 이벤트 처리를 깊이 있게 학습하고 싶었습니다.&#10;[나의 역할] 100% 개인 프로젝트로 진행했습니다.&#10;[구현 과정] 할 일 추가, 삭제, 완료 처리 및 LocalStorage를 이용한 데이터 저장 기능을 구현했습니다.&#10;[배운 점] 순수 JavaScript만으로도 동적인 웹 애플리케이션을 만들 수 있다는 자신감을 얻었습니다.">자세히 보기 &rarr;</a></div></div><div class="project-card" data-category="react toy" data-aos="fade-up" data-aos-delay="200"><img src="https://via.placeholder.com/400x250/ffc107/333?text=Movie+Web" alt="프로젝트 3"><div class="project-card-content"><h3>영화 정보 검색 사이트</h3><p>React와 외부 API를 연동하여 만든 토이 프로젝트입니다.</p><a class="read-more-btn" data-title="영화 정보 검색 사이트" data-image="https://via.placeholder.com/800x500/ffc107/333?text=Project+3+Detail" data-description="[문제 정의] 외부 API를 호출하고 응답받은 데이터를 화면에 렌더링하는 과정을 연습하고 싶었습니다.&#10;[나의 역할] 100% 개인 프로젝트로 진행했습니다.&#10;[구현 과정] The Movie DB API를 사용하여 영화 검색, 인기 순위, 상세 정보 보기 기능을 구현했습니다.&#10;[배운 점] 비동기 API 호출 및 데이터 핸들링, React Router를 이용한 페이지 라우팅에 익숙해졌습니다.">자세히 보기 &rarr;</a></div></div></div>
+            </div>
+        </section>
+
+        <section id="analysis" class="page-section">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">기업 분석</h2>
+                <div class="search-bar" data-aos="fade-up" data-aos-delay="100">
+                    <input type="text" id="company-search-input" placeholder="기업명을 입력하세요 (예: 삼성전자, 카카오)">
+                    <button id="company-search-btn">검색</button>
+                </div>
+                <div id="analysis-content" class="hidden" data-aos="fade-in" data-aos-delay="200">
+                        <div class="analysis-section"><h3>1. 기업개요</h3><table class="analysis-table"><tbody><tr><th>기업명</th><td id="corp-name"></td></tr><tr><th>홈페이지 주소</th><td id="corp-website"></td></tr><tr><th>설립연도</th><td id="corp-founded"></td></tr><tr><th>대표이사</th><td id="corp-ceo"></td></tr><tr><th>미션/비전/핵심가치</th><td id="corp-vision" style="white-space: pre-wrap;"></td></tr><tr><th>본사 및 지사 위치</th><td id="corp-location"></td></tr><tr><th>주요 사업 분야</th><td id="corp-biz-area"></td></tr><tr><th>주요 제품 및 서비스</th><td id="corp-services"></td></tr></tbody></table></div>
+                    <div class="analysis-section"><h3>2. 재무분석</h3><table class="analysis-table"><tbody><tr><th>매출액 (3년)</th><td id="corp-revenue"></td></tr><tr><th>영업이익 (3년)</th><td id="corp-profit"></td></tr><tr><th>당기순이익 (3년)</th><td id="corp-net-income"></td></tr><tr><th>사업성과 (최근 3년)</th><td id="corp-performance" style="white-space: pre-wrap;"></td></tr></tbody></table></div>
+                    <div class="analysis-section"><h3>3. SWOT 분석</h3><div class="swot-grid"><div class="swot-card"><h4>강점 (Strength)</h4><ul id="swot-strength"></ul></div><div class="swot-card"><h4>약점 (Weakness)</h4><ul id="swot-weakness"></ul></div><div class="swot-card"><h4>기회 (Opportunity)</h4><ul id="swot-opportunity"></ul></div><div class="swot-card"><h4>위협 (Threat)</h4><ul id="swot-threat"></ul></div></div><table class="analysis-table" style="margin-top: 20px;"><tbody><tr><th>선택 전략 및 근거</th><td id="swot-strategy"></td></tr></tbody></table></div>
+                    <div class="analysis-section"><h3>4. 산업분석</h3><table class="analysis-table"><tbody><tr><th>분석 방법</th><td id="industry-method"></td></tr><tr><th>분석 결과</th><td id="industry-result"></td></tr><tr><th>경쟁사 및 동종업체</th><td id="industry-competitors"></td></tr><tr><th>경쟁사 분석 (업종)</th><td id="industry-competitor-analysis"></td></tr></tbody></table></div>
+                    <div class="analysis-section"><h3>5. 직무분석 (프론트엔드 개발자)</h3><table class="analysis-table"><tbody><tr><th>주요 직무</th><td id="job-duties"></td></tr><tr><th>직무 설명</th><td id="job-description"></td></tr><tr><th>필요 지식 (K)</th><td id="job-knowledge"></td></tr><tr><th>필요 기술 (S)</th><td id="job-skills"></td></tr><tr><th>필요 태도 (A)</th><td id="job-attitude"></td></tr><tr><th>관련 자격증</th><td id="job-certs"></td></tr><tr><th>업무 환경</th><td id="job-env"></td></tr><tr><th>경력 개발 기회</th><td id="job-career-dev"></td></tr></tbody></table></div>
+                    <div class="analysis-section"><h3>6. 보유역량 및 자기분석</h3><table class="analysis-table"><tbody><tr><th>보유 지식 (K)</th><td id="my-knowledge"></td></tr><tr><th>보유 스킬 (S)</th><td id="my-skills"></td></tr><tr><th>보유 태도 (A)</th><td id="my-attitude"></td></tr><tr><th>액션플랜 (1)</th><td id="my-plan1"></td></tr><tr><th>액션플랜 (2)</th><td id="my-plan2"></td></tr><tr><th>액션플랜 (3)</th><td id="my-plan3"></td></tr></tbody></table></div>
+                </div>
+                 <p id="analysis-status">분석할 기업명을 검색해주세요.</p>
+            </div>
+        </section>
+
+        <section id="interview" class="page-section">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">인터뷰 기록</h2>
+                <form id="interview-form" data-aos="fade-up" data-aos-delay="100">
+                    <div class="form-grid">
+                        <div class="form-group"><label for="interview-company">회사명</label><input type="text" id="interview-company" required></div>
+                        <div class="form-group"><label for="interview-date">면접일</label><input type="date" id="interview-date" required></div>
+                        <div class="form-group"><label for="interview-position">지원 직무</label><input type="text" id="interview-position" required></div>
+                        <div class="form-group"><label for="interview-stage">면접 단계</label><select id="interview-stage" required><option value="">선택하세요</option><option value="서류전형">서류전형</option><option value="코딩테스트">코딩테스트</option><option value="1차 면접 (실무)">1차 면접 (실무)</option><option value="2차 면접 (임원)">2차 면접 (임원)</option><option value="최종 합격">최종 합격</option></select></div>
+                    </div>
+                    <div class="form-group full-width"><label for="interview-questions">주요 질의응답</label><textarea id="interview-questions" rows="8" placeholder="면접에서 오고 갔던 질문과 답변을 상세히 기록해보세요."></textarea></div>
+                    <div class="form-group full-width"><label for="interview-review">개인적인 소감 / 피드백</label><textarea id="interview-review" rows="5" placeholder="면접을 통해 느낀 점, 아쉬웠던 점, 앞으로 보완할 점 등을 자유롭게 작성하세요."></textarea></div>
+                    <button type="submit" class="submit-btn">기록 추가하기</button>
+                    <p id="interview-status" class="form-status"></p>
+                </form>
+                <div id="interview-board" style="margin-top: 50px;">
+                    </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container"><div class="social-links"><a href="https://github.com" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a><a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a><a href="https://velog.io" target="_blank" aria-label="Blog"><i class="fa-solid fa-blog"></i></a></div><p>&copy; 2025 Hong Gil-dong. All rights reserved.</p></div>
+    </footer>
+
+    <div id="project-modal" class="modal-overlay">
+        <div class="modal-content"><span class="modal-close-btn">&times;</span><img id="modal-project-image" src="" alt="프로젝트 상세 이미지"><h2 id="modal-project-title"></h2><p id="modal-project-description" style="white-space: pre-wrap;"></p></div>
+    </div>
+    
+    <button id="back-to-top" aria-label="맨 위로 가기"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ---- 외부 라이브러리 실패해도 전체 로직 유지 ----
+            try { AOS.init({ duration: 800, once: true }); }
+            catch (e) { console.warn('AOS not available, continuing without it.', e); }
+        
+            // ---- 공용 함수 ----
+            const $ = (s, r=document) => r.querySelector(s);
+            const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+            const setText = (id, v) => { const el=document.getElementById(id); if(el) el.textContent = (v ?? '-'); };
+            const setList = (id, items=[]) => { const ul=document.getElementById(id); if(!ul) return;
+                ul.innerHTML=''; if(!Array.isArray(items)||!items.length){const li=document.createElement('li');li.textContent='-';ul.appendChild(li);return;}
+                items.forEach(t=>{const li=document.createElement('li'); li.textContent=String(t); ul.appendChild(li);});
+            };
+            const safeLinkIntoCell = (id, raw) => {
+                const td=document.getElementById(id); if(!td) return; td.textContent='-';
+                if(!raw) return; let href=String(raw).trim(); if(!/^https?:\/\//i.test(href)) href='https://'+href;
+                try{ new URL(href); }catch{return;}
+                const a=document.createElement('a'); a.href=href; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent=raw;
+                td.innerHTML=''; td.appendChild(a);
+            };
+        
+            // ---- API 베이스 ----
+            const API_BASE = (location.protocol.startsWith('http'))
+                ? `${location.protocol}//${location.hostname}:5000`
+                : 'http://127.0.0.1:5000';
+        
+            // ---- 페이지 전환/네비 ----
+            const navLinks = $$('.navigation a, .logo a');
+            const allSections = $$('main > section');
+            const homeSections = $$('.home-section');
+            function showPage(id){ allSections.forEach(s=>s.style.display='none'); (id==='home'?homeSections:[document.getElementById(id)]).forEach(s=>s&&(s.style.display='block')); window.scrollTo(0,0); }
+            navLinks.forEach(link=>link.addEventListener('click',e=>{e.preventDefault(); const id=link.dataset.target;
+                navLinks.forEach(l=>l.classList.remove('active')); $$(`[data-target="${id}"]`).forEach(a=>a.classList.add('active'));
+                if(window.innerWidth<=768) $('.navigation').classList.remove('active'); showPage(id);
+            }));
+            showPage('home');
+        
+            // ---- 기타 UI ----
+            try{ new TypeIt("#typing-subtitle",{strings:["배우고 성장하는 개발자입니다.","사용자 경험을 중요하게 생각합니다."],speed:75,loop:true,loopDelay:3000,breakLines:false}).go(); }
+            catch(e){ console.warn('TypeIt not available, continuing.', e); }
+            $('.menu-toggle-btn').addEventListener('click',()=>$('.navigation').classList.toggle('active'));
+            const dmt=$('.dark-mode-toggle'); if(localStorage.getItem('theme')==='dark') document.body.classList.add('dark-mode');
+            dmt.addEventListener('click',()=>{document.body.classList.toggle('dark-mode'); localStorage.setItem('theme',document.body.classList.contains('dark-mode')?'dark':'light');});
+            const backBtn=$('#back-to-top'); window.addEventListener('scroll',()=>backBtn.classList.toggle('show',window.scrollY>300)); backBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+            const filterBtns=$$('.filter-btn'), cards=$$('.project-card');
+            filterBtns.forEach(btn=>btn.addEventListener('click',()=>{filterBtns.forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+                cards.forEach(c=>c.classList.toggle('hide',!(btn.dataset.filter==='all'||c.dataset.category.includes(btn.dataset.filter))));}));
+            const modal=$('#project-modal'), closeBtn=modal.querySelector('.modal-close-btn');
+            $$('.read-more-btn').forEach(b=>b.addEventListener('click',()=>{$('#modal-project-title').textContent=b.dataset.title; $('#modal-project-image').src=b.dataset.image; $('#modal-project-description').textContent=b.dataset.description.replace(/&#10;/g,'\n'); modal.classList.add('active');}));
+            const closeModal=()=>modal.classList.remove('active'); closeBtn.addEventListener('click',closeModal); modal.addEventListener('click',e=>{if(e.target===modal) closeModal();});
+        
+            // =================================================================
+            // 기업 분석 로직
+            // =================================================================
+            const input = $('#company-search-input');
+            const btn = $('#company-search-btn');
+            const panel = $('#analysis-content');
+            const statusEl = $('#analysis-status');
+
+            let companyList = []; // DART의 모든 회사 목록을 저장할 배열
+
+            // 페이지 로드 시 CORPCODE.xml 파일을 비동기적으로 로드하고 파싱하는 함수
+            async function loadCompanyCodes() {
+                try {
+                    statusEl.textContent = 'DART 기업 목록을 불러오는 중...';
+                    const response = await fetch('./CORPCODE.xml'); // 같은 폴더에 있는 파일을 fetch
+                    if (!response.ok) throw new Error('CORPCODE.xml 파일을 불러올 수 없습니다.');
+                    
+                    const xmlString = await response.text();
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(xmlString, "text/xml");
+                    
+                    const items = xmlDoc.querySelectorAll('list');
+                    companyList = Array.from(items).map(item => ({
+                        name: item.querySelector('corp_name').textContent.trim(),
+                        code: item.querySelector('corp_code').textContent.trim()
+                    }));
+                    
+                    statusEl.textContent = `✅ 총 ${companyList.length.toLocaleString()}개 기업 목록 로딩 완료! 분석할 기업명을 검색해주세요.`;
+                    console.log('DART 기업 목록 로딩 성공:', companyList);
+
+                } catch (err) {
+                    statusEl.textContent = `😥 기업 목록 로딩 실패: ${err.message}. CORPCODE.xml 파일이 있는지 확인해주세요.`;
+                    console.error('기업 목록 로딩 실패:', err);
+                }
+            }
+
+            // DART API 호출 함수
+            async function fetchCompanyData(code) {
+                statusEl.textContent = '기본 정보를 DART에서 불러오는 중...';
+                const y = (new Date()).getFullYear();
+                const [r1, r2] = await Promise.all([
+                    fetch(`${API_BASE}/api/company?code=${code}`),
+                    fetch(`${API_BASE}/api/finance?code=${code}&year=${y - 1}`)
+                ]);
+                if (!r1.ok || !r2.ok) throw new Error('백엔드 서버 호출에 실패했습니다.');
+                const d1 = await r1.json(), d2 = await r2.json();
+                if (d1.status !== "000" && d1.status !== "013") throw new Error(d1.message || '기업 기본정보 오류');
+                if (d2.status !== "000" && d2.status !== "013") throw new Error('재무 정보를 가져올 수 없습니다.');
+                return { overviewData: d1, financeData: d2 };
+            }
+
+            // Gemini API 호출 함수
+            async function fetchGeneratedAnalysis(name, bizArea) {
+                statusEl.textContent = '✅ 기본 정보 로딩 완료! Gemini로 추가 분석을 생성하는 중...';
+                const r = await fetch(`${API_BASE}/api/generate-analysis`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, bizArea })
+                });
+                if (!r.ok) {
+                    const err = await r.json().catch(() => ({}));
+                    const extra = err.upstream || err.detail || err.error || `HTTP ${r.status}`;
+                    throw new Error(`Gemini 분석 데이터 생성에 실패했습니다. ${extra}`);
+                }
+                return await r.json();
+            }
+
+            // DART 데이터 화면에 표시
+            function populateAnalysisData({ overviewData, financeData }) {
+                // 기존 데이터를 초기화합니다.
+                const allDataCells = $$('#analysis-content td, #analysis-content ul');
+                allDataCells.forEach(el => {
+                    if (el.tagName === 'UL') {
+                        el.innerHTML = '';
+                    } else {
+                        el.textContent = '';
+                    }
+                });
+                
+                // Gemini 분석 정보 로딩 중 메시지 설정
+                ['corp-vision','corp-services','corp-performance','swot-strategy','industry-method','industry-result','industry-competitors','industry-competitor-analysis','job-duties','job-description','job-knowledge','job-skills','job-attitude','job-certs','job-env','job-career-dev','my-knowledge','my-skills','my-attitude','my-plan1','my-plan2','my-plan3']
+                    .forEach(id => setText(id,'Gemini 분석 정보 로딩 중...'));
+                ['swot-strength','swot-weakness','swot-opportunity','swot-threat']
+                    .forEach(id => setList(id, ['Gemini 분석 정보 로딩 중...']));
+
+
+                // DART 정보 채우기
+                setText('corp-name', overviewData.corp_name);
+                safeLinkIntoCell('corp-website', overviewData.hm_url);
+                const est = overviewData.est_dt;
+                if (est && /^\d{8}$/.test(est)) setText('corp-founded', `${est.slice(0,4)}년 ${est.slice(4,6)}월 ${est.slice(6,8)}일`);
+                else setText('corp-founded', '-');
+                setText('corp-ceo', overviewData.ceo_nm);
+                setText('corp-location', overviewData.adres);
+                setText('corp-biz-area', overviewData.induty_code_nm);
+
+                const find = n => financeData.list?.find(i => i.account_nm === n);
+                const fmt = s => { if (!s) return '-'; const v = parseInt(s, 10); return isNaN(v) ? '-' : `${(v / 100000000).toLocaleString('ko-KR')} 억원`; };
+                const rev = find('매출액') || find('수익(매출)');
+                const pro = find('영업이익');
+                const net = find('당기순이익');
+                const y = (it, off) => it?.bsns_year ? ` (${parseInt(it.bsns_year, 10) - off})` : '';
+                setText('corp-revenue', `${fmt(rev?.thstrm_amount)}${y(rev,0)}, ${fmt(rev?.frmtrm_amount)}${y(rev,1)}, ${fmt(rev?.bfefrmtrm_amount)}${y(rev,2)}`);
+                setText('corp-profit', `${fmt(pro?.thstrm_amount)}${y(pro,0)}, ${fmt(pro?.frmtrm_amount)}${y(pro,1)}, ${fmt(pro?.bfefrmtrm_amount)}${y(pro,2)}`);
+                setText('corp-net-income', `${fmt(net?.thstrm_amount)}${y(net,0)}, ${fmt(net?.frmtrm_amount)}${y(net,1)}, ${fmt(net?.bfefrmtrm_amount)}${y(net,2)}`);
+            }
+            
+            // Gemini 데이터 화면에 표시 (최종 버전)
+            function populateGeminiData(g) {
+                if (g?.error) {
+                    ['corp-vision','corp-services','corp-performance','swot-strategy','industry-method','industry-result','industry-competitors','industry-competitor-analysis','job-duties','job-description','job-knowledge','job-skills','job-attitude','job-certs','job-env','job-career-dev','my-knowledge','my-skills','my-attitude','my-plan1','my-plan2','my-plan3']
+                        .forEach(id => setText(id, 'Gemini 분석 중 오류가 발생했습니다.'));
+                    return;
+                }
+
+                // 기본 정보
+                setText('corp-vision', g.vision);
+                const servicesEl = document.getElementById('corp-services');
+                if (servicesEl && Array.isArray(g.productsAndServices)) {
+                    servicesEl.innerHTML = g.productsAndServices.join('<br>');
+                } else {
+                    setText('corp-services', '-');
+                }
+                setText('corp-performance', g.performanceSummary);
+
+                // SWOT 분석
+                if (g.swot) {
+                    setList('swot-strength', g.swot.strength);
+                    setList('swot-weakness', g.swot.weakness);
+                    setList('swot-opportunity', g.swot.opportunity);
+                    setList('swot-threat', g.swot.threat);
+                    setText('swot-strategy', g.swot.strategy);
+                }
+
+                // 산업 분석
+                if (g.industryAnalysis) {
+                    setText('industry-method', g.industryAnalysis.method);
+                    setText('industry-result', g.industryAnalysis.result);
+                    setText('industry-competitors', g.industryAnalysis.competitors);
+                    setText('industry-competitor-analysis', g.industryAnalysis.competitorAnalysis);
+                }
+
+                // 직무 분석
+                if (g.job) {
+                    setText('job-duties', g.job.duties);
+                    setText('job-description', g.job.description);
+                    setText('job-knowledge', g.job.knowledge);
+                    setText('job-skills', g.job.skills);
+                    setText('job-attitude', g.job.attitude);
+                    setText('job-certs', g.job.certs);
+                    setText('job-env', g.job.env);
+                    setText('job-career-dev', g.job.careerDev);
+                }
+                
+                // 보유역량 및 자기분석
+                if (g.selfAnalysis) {
+                    setText('my-knowledge', g.selfAnalysis.knowledge);
+                    setText('my-skills', g.selfAnalysis.skills);
+                    setText('my-attitude', g.selfAnalysis.attitude);
+                    setText('my-plan1', g.selfAnalysis.actionPlan1);
+                    setText('my-plan2', g.selfAnalysis.actionPlan2);
+                    setText('my-plan3', g.selfAnalysis.actionPlan3);
+                }
+            }
+
+            // 검색 버튼 클릭 이벤트 핸들러
+            btn.addEventListener('click', async () => {
+                const query = input.value.trim();
+                if (!query) {
+                    statusEl.textContent = '검색할 기업명을 입력해주세요.';
+                    return;
+                }
+
+                const cleanQuery = query.replace(/\(주\)/g, '').trim();
+                const foundCompany = companyList.find(c => c.name.replace(/\(주\)/g, '').trim() === cleanQuery);
+                
+                if (!foundCompany) {
+                    statusEl.textContent = `😥 '${query}'에 대한 기업 정보를 찾을 수 없습니다. 정확한 기업명을 입력해주세요.`;
+                    panel.classList.add('hidden');
+                    return;
+                }
+
+                const code = foundCompany.code;
+                const prev = btn.textContent;
+                btn.disabled = true;
+                btn.textContent = '검색 중...';
+                
+                try {
+                    const dartData = await fetchCompanyData(code);
+                    populateAnalysisData(dartData); // DART 데이터 먼저 표시 및 기존 Gemini 데이터 초기화
+                    panel.classList.remove('hidden');
+                    
+                    const geminiData = await fetchGeneratedAnalysis(dartData.overviewData.corp_name, dartData.overviewData.induty_code_nm);
+                    populateGeminiData(geminiData); // Gemini 데이터 표시
+                    
+                    statusEl.textContent = `✅ '${query}'에 대한 전체 분석이 완료되었습니다.`;
+                } catch (err) {
+                    panel.classList.add('hidden');
+                    statusEl.textContent = `😥 데이터 조회 실패: ${err.message}`;
+                    console.error(err);
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = prev;
+                }
+            });
+
+            // 페이지가 처음 로드될 때 기업 목록을 불러옵니다.
+            loadCompanyCodes();
+
+            // 인터뷰 렌더링(생략: 기존 안전 버전 유지)
+            // ...
+        });
+    </script>
+    
+</body>
+</html>
