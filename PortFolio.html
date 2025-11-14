@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>홍길동 | 끊임없이 성장하는 개발자 포트폴리오</title>
+    <title>Not NULL | 끊임없이 성장하는 개발자 포트폴리오</title>
     
-    <meta name="description" content="React와 Node.js에 강점을 가진 개발자 홍길동의 기술 스택, 프로젝트, 경력을 담은 포트폴리오입니다.">
-    <meta name="keywords" content="웹개발자, 프론트엔드, 백엔드, 포트폴리오, React, Node.js, 홍길동, 기업분석">
-    <meta name="author" content="홍길동">
+    <meta name="description" content="React와 Node.js에 강점을 가진 개발자 Not NULL의 기술 스택, 프로젝트, 경력을 담은 포트폴리오입니다.">
+    <meta name="keywords" content="웹개발자, 프론트엔드, 백엔드, 포트폴리오, React, Node.js, Not NULL, 기업분석">
+    <meta name="author" content="Not NULL">
     
-    <meta property="og:title" content="홍길동 | 개발자 포트폴리오">
-    <meta property="og:description" content="기술로 더 나은 세상을 만드는 개발자, 홍길동의 포트폴리오를 만나보세요.">
-    <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=Hong+Gildong's+Portfolio">
+    <meta property="og:title" content="Not NULL | 개발자 포트폴리오">
+    <meta property="og:description" content="기술로 더 나은 세상을 만드는 개발자, Not NULL의 포트폴리오를 만나보세요.">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=Not+NULL's+Portfolio">
     <meta property="og:url" content="https://your-domain.com">
     <meta property="og:type" content="website">
 
@@ -49,38 +49,6 @@
         #hero .hero-content h1 { font-size: 4rem; margin-bottom: 15px; font-weight: 800; }
         #hero .hero-content .subtitle { font-size: 1.5rem; color: var(--subtext-color); min-height: 2.4rem; }
         
-        .skills-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 25px; }
-        .skill-category { background-color: var(--section-bg-color); border: 1px solid var(--border-color); border-radius: 12px; padding: 30px; min-width: 280px; text-align: center; box-shadow: 0 4px 8px var(--shadow-color); }
-        .skill-icons { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
-        .skill-icon i { font-size: 3rem; margin-bottom: 8px; }
-        .fa-html5 { color: #e34f26; } .fa-css3-alt { color: #1572b6; } .fa-js { color: #f7df1e; } .fa-react { color: #61dafb; } .fa-node-js { color: #339933; } .fa-github { color: var(--text-color); }
-        .timeline { position: relative; max-width: 800px; margin: 0 auto; }
-        .timeline::after { content: ''; position: absolute; width: 4px; background-color: var(--timeline-line-color); top: 0; bottom: 0; left: 50%; margin-left: -2px; }
-        .timeline-item { padding: 10px 40px; position: relative; width: 50%; }
-        .timeline-item.left { left: 0; }
-        .timeline-item.right { left: 50%; }
-        .timeline-item::after { content: ''; position: absolute; width: 20px; height: 20px; right: -10px; background-color: var(--section-bg-color); border: 4px solid var(--accent-color); top: 15px; border-radius: 50%; z-index: 1; }
-        .right::after { left: -10px; }
-        .timeline-content { padding: 20px 30px; background-color: var(--section-bg-color); border: 1px solid var(--border-color); border-radius: 8px; }
-        .filter-buttons { text-align: center; margin-bottom: 40px; }
-        .filter-btn { background: none; border: 2px solid var(--border-color); color: var(--subtext-color); padding: 8px 20px; margin: 5px; border-radius: 20px; cursor: pointer; font-weight: 500; }
-        .filter-btn.active, .filter-btn:hover { background-color: var(--accent-color); color: #fff; border-color: var(--accent-color); }
-        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        
-        .project-card { background-color: var(--section-bg-color); border: 1px solid var(--border-color); border-radius: 12px; box-shadow: 0 4px 8px var(--shadow-color); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .project-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px var(--shadow-color); }
-        .project-card.hide { display: none; }
-        .project-card img { width: 100%; height: 200px; object-fit: cover; display: block; }
-        .project-card-content { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
-        .project-card-content h3 { font-size: 1.3rem; margin-bottom: 10px; }
-        .project-card-content p { color: var(--subtext-color); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
-        .read-more-btn { font-weight: 600; cursor: pointer; align-self: flex-start; margin-top: auto; padding-top: 10px; transition: color 0.2s; }
-        .read-more-btn:hover { color: var(--text-color); }
-
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 2000; }
-        .modal-content { background-color: var(--section-bg-color); padding: 30px; border-radius: 8px; width: 90%; max-width: 700px; max-height: 80vh; overflow-y: auto; position: relative; }
-        .modal-close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; color: var(--subtext-color); cursor: pointer; }
-        .modal-overlay.active { display: flex; }
         .search-bar { display: flex; max-width: 600px; margin: 0 auto 40px; gap: 10px; }
         #company-search-input { flex-grow: 1; padding: 12px; font-size: 1rem; border: 1px solid var(--border-color); border-radius: 8px; background-color: var(--bg-color); color: var(--text-color); }
         #company-search-btn { padding: 12px 20px; background-color: var(--accent-color); color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
@@ -95,13 +63,101 @@
         .form-status.success { color: #28a745; }
         .form-status.error { color: #dc3545; }
         #interview-board { max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 20px; }
-        .interview-card { background-color: var(--section-bg-color); padding: 25px; border-radius: 8px; border-left: 5px solid var(--accent-color); box-shadow: 0 4px 8px var(--shadow-color); position: relative; }
-        .interview-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
-        .interview-card-header h4 { font-size: 1.5rem; margin: 0; }
-        .interview-card-meta { text-align: right; color: var(--subtext-color); font-size: 0.9rem; }
-        .interview-card-body p { white-space: pre-wrap; margin-top: 10px; }
-        .interview-card-body strong { display: block; margin-top: 15px; font-size: 1.1rem; color: var(--text-color); }
-        .delete-interview-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--subtext-color); font-size: 1.2rem; cursor: pointer; }
+        
+        /* =================================== */
+        /* [수정됨] 인터뷰 카드 토글 스타일 */
+        /* =================================== */
+        .interview-card {
+            background-color: var(--section-bg-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            overflow: hidden; 
+            transition: box-shadow 0.3s ease;
+        }
+        .interview-card:hover {
+             box-shadow: 0 8px 16px var(--shadow-color);
+        }
+        .interview-card-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            cursor: pointer;
+        }
+        .interview-card-toggle h4 { 
+            font-size: 1.3rem; 
+            margin: 0; 
+            color: var(--text-color);
+        }
+        .interview-card-toggle span { 
+            color: var(--subtext-color); 
+            font-size: 0.95rem; 
+            font-weight: 500;
+        }
+        .toggle-icon { 
+            color: var(--subtext-color); 
+            transition: transform 0.3s ease;
+            font-size: 1.1rem;
+        }
+        .interview-card-content {
+            display: none; /* 기본 숨김 */
+            padding: 0 25px 25px 25px;
+        }
+        .interview-card-content .interview-card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 20px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--subtext-color);
+        }
+        .interview-card-content .interview-card-meta span strong {
+            color: var(--text-color);
+            margin-right: 5px;
+        }
+        .interview-card-content strong { 
+            display: block; 
+            margin-top: 15px; 
+            font-size: 1.1rem; 
+            color: var(--text-color); 
+        }
+        .interview-card-content p { 
+            white-space: pre-wrap; 
+            margin-top: 10px; 
+            color: var(--subtext-color);
+            line-height: 1.8;
+        }
+        .delete-interview-btn {
+            background-color: var(--subtext-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            font-weight: 500;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .delete-interview-btn:hover { 
+            background-color: #dc3545; 
+            color: #fff; 
+        }
+
+        /* [수정됨] 카드가 펼쳐졌을 때 스타일 */
+        .interview-card.expanded .interview-card-content { 
+            display: block; 
+        }
+        .interview-card.expanded .toggle-icon { 
+            transform: rotate(180deg); 
+        }
+        /* =================================== */
+        /* 스타일 수정 끝 */
+        /* =================================== */
+
         .analysis-section { margin-bottom: 50px; }
         .analysis-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
         .analysis-table th, .analysis-table td { padding: 12px 15px; border: 1px solid var(--border-color); text-align: left; }
@@ -118,10 +174,6 @@
             .navigation.active { display: block; max-height: 500px; }
             .navigation ul { flex-direction: column; text-align: center; }
             .navigation ul li { padding: 15px 0; border-top: 1px solid var(--border-color); }
-            .timeline::after { left: 20px; }
-            .timeline-item { width: 100%; padding-left: 60px; padding-right: 10px; }
-            .timeline-item.right, .timeline-item.left { left: 0%; }
-            .timeline-item::after { left: 10px; }
             .form-grid { grid-template-columns: 1fr; }
             .analysis-table th { width: 35%; }
         }
@@ -135,7 +187,6 @@
                 <nav class="navigation">
                     <ul>
                         <li><a data-target="home" class="active">소개</a></li>
-                        <li><a data-target="projects">프로젝트</a></li>
                         <li><a data-target="analysis">기업 분석</a></li>
                         <li><a data-target="interview">인터뷰 기록</a></li>
                     </ul>
@@ -150,39 +201,12 @@
         <section id="hero" class="home-section">
             <div class="container" data-aos="fade-in">
                 <div class="hero-content">
-                    <h1>홍길동입니다.</h1>
+                    <h1>Not NULL입니다.</h1>
                     <p id="typing-subtitle" class="subtitle"></p>
                 </div>
             </div>
         </section>
-        <section id="skills" class="home-section">
-            <div class="container">
-                <h2 class="section-title" data-aos="fade-up">Skills</h2>
-                <div class="skills-grid" data-aos="fade-up" data-aos-delay="100">
-                    <div class="skill-category"><h3>Frontend</h3><div class="skill-icons"><div class="skill-icon"><i class="fa-brands fa-html5"></i><p>HTML5</p></div><div class="skill-icon"><i class="fa-brands fa-css3-alt"></i><p>CSS3</p></div><div class="skill-icon"><i class="fa-brands fa-js"></i><p>JavaScript</p></div><div class="skill-icon"><i class="fa-brands fa-react"></i><p>React</p></div></div></div>
-                    <div class="skill-category"><h3>Backend & Tools</h3><div class="skill-icons"><div class="skill-icon"><i class="fa-brands fa-node-js"></i><p>Node.js</p></div><div class="skill-icon"><i class="fa-brands fa-github"></i><p>GitHub</p></div></div></div>
-                </div>
-            </div>
-        </section>
-        <section id="career" class="home-section">
-            <div class="container">
-                <h2 class="section-title" data-aos="fade-up">Career</h2>
-                <div class="timeline">
-                    <div class="timeline-item left" data-aos="fade-right"><div class="timeline-content"><h3>(주)A회사 프론트엔드 개발자</h3><p class="date">2023.03 - 현재</p><p>React 기반의 웹 서비스 유지보수 및 신규 기능 개발을 담당하고 있습니다.</p></div></div>
-                    <div class="timeline-item right" data-aos="fade-left"><div class="timeline-content"><h3>B부트캠프 수료</h3><p class="date">2022.09 - 2023.02</p><p>웹 개발 풀스택 과정을 수료하며 다수의 팀 프로젝트를 진행했습니다.</p></div></div>
-                    <div class="timeline-item left" data-aos="fade-right"><div class="timeline-content"><h3>C대학교 컴퓨터공학과 졸업</h3><p class="date">2018.03 - 2022.08</p><p>자료구조, 알고리즘, 네트워크 등 CS 기본기를 다졌습니다.</p></div></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" class="page-section">
-            <div class="container">
-                <h2 class="section-title" data-aos="fade-up">Projects</h2>
-                <div class="filter-buttons" data-aos="fade-up"><button class="filter-btn active" data-filter="all">전체</button><button class="filter-btn" data-filter="react">React</button><button class="filter-btn" data-filter="vanilla">Vanilla JS</button><button class="filter-btn" data-filter="toy">Toy Project</button></div>
-                <div class="project-grid"><div class="project-card" data-category="react" data-aos="fade-up"><img src="https://via.placeholder.com/400x250/007bff/fff?text=React+Project" alt="프로젝트 1"><div class="project-card-content"><h3>리액트 기반 대시보드</h3><p>React와 Chart.js를 사용한 데이터 시각화 대시보드입니다.</p><a class="read-more-btn" data-title="리액트 기반 대시보드" data-image="https://via.placeholder.com/800x500/007bff/fff?text=Project+1+Detail" data-description="[문제 정의] 복잡한 데이터를 사용자가 한눈에 파악할 수 있는 인터랙티브 대시보드가 필요했습니다.&#10;[나의 역할] UI/UX 설계부터 전체 프론트엔드 개발을 담당했습니다.&#10;[구현 과정] API 연동, 데이터 시각화, 상태 관리(Redux) 등을 구현했습니다.&#10;[배운 점] 대용량 데이터 처리 및 비동기 통신에 대한 깊은 이해를 얻었습니다.">자세히 보기 &rarr;</a></div></div><div class="project-card" data-category="vanilla toy" data-aos="fade-up" data-aos-delay="100"><img src="https://via.placeholder.com/400x250/28a745/fff?text=JS+Todo+App" alt="프로젝트 2"><div class="project-card-content"><h3>바닐라 JS 투두리스트</h3><p>JavaScript 기본기를 다지기 위해 만든 심플한 할 일 관리 앱입니다.</p><a class="read-more-btn" data-title="바닐라 JS 투두리스트" data-image="https://via.placeholder.com/800x500/28a745/fff?text=Project+2+Detail" data-description="[문제 정의] JS의 기본 개념인 DOM 조작과 이벤트 처리를 깊이 있게 학습하고 싶었습니다.&#10;[나의 역할] 100% 개인 프로젝트로 진행했습니다.&#10;[구현 과정] 할 일 추가, 삭제, 완료 처리 및 LocalStorage를 이용한 데이터 저장 기능을 구현했습니다.&#10;[배운 점] 순수 JavaScript만으로도 동적인 웹 애플리케이션을 만들 수 있다는 자신감을 얻었습니다.">자세히 보기 &rarr;</a></div></div><div class="project-card" data-category="react toy" data-aos="fade-up" data-aos-delay="200"><img src="https://via.placeholder.com/400x250/ffc107/333?text=Movie+Web" alt="프로젝트 3"><div class="project-card-content"><h3>영화 정보 검색 사이트</h3><p>React와 외부 API를 연동하여 만든 토이 프로젝트입니다.</p><a class="read-more-btn" data-title="영화 정보 검색 사이트" data-image="https://via.placeholder.com/800x500/ffc107/333?text=Project+3+Detail" data-description="[문제 정의] 외부 API를 호출하고 응답받은 데이터를 화면에 렌더링하는 과정을 연습하고 싶었습니다.&#10;[나의 역할] 100% 개인 프로젝트로 진행했습니다.&#10;[구현 과정] The Movie DB API를 사용하여 영화 검색, 인기 순위, 상세 정보 보기 기능을 구현했습니다.&#10;[배운 점] 비동기 API 호출 및 데이터 핸들링, React Router를 이용한 페이지 라우팅에 익숙해졌습니다.">자세히 보기 &rarr;</a></div></div></div>
-            </div>
-        </section>
-
+        
         <section id="analysis" class="page-section">
             <div class="container">
                 <h2 class="section-title" data-aos="fade-up">기업 분석</h2>
@@ -224,12 +248,8 @@
     </main>
 
     <footer class="footer">
-        <div class="container"><div class="social-links"><a href="https://github.com" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a><a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a><a href="https://velog.io" target="_blank" aria-label="Blog"><i class="fa-solid fa-blog"></i></a></div><p>&copy; 2025 Hong Gil-dong. All rights reserved.</p></div>
+        <div class="container"><div class="social-links"><a href="https://github.com" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a><a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a><a href="https://velog.io" target="_blank" aria-label="Blog"><i class="fa-solid fa-blog"></i></a></div><p>&copy; 2025 Not NULL. All rights reserved.</p></div>
     </footer>
-
-    <div id="project-modal" class="modal-overlay">
-        <div class="modal-content"><span class="modal-close-btn">&times;</span><img id="modal-project-image" src="" alt="프로젝트 상세 이미지"><h2 id="modal-project-title"></h2><p id="modal-project-description" style="white-space: pre-wrap;"></p></div>
-    </div>
     
     <button id="back-to-top" aria-label="맨 위로 가기"><i class="fa-solid fa-arrow-up"></i></button>
 
@@ -281,13 +301,7 @@
             const dmt=$('.dark-mode-toggle'); if(localStorage.getItem('theme')==='dark') document.body.classList.add('dark-mode');
             dmt.addEventListener('click',()=>{document.body.classList.toggle('dark-mode'); localStorage.setItem('theme',document.body.classList.contains('dark-mode')?'dark':'light');});
             const backBtn=$('#back-to-top'); window.addEventListener('scroll',()=>backBtn.classList.toggle('show',window.scrollY>300)); backBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-            const filterBtns=$$('.filter-btn'), cards=$$('.project-card');
-            filterBtns.forEach(btn=>btn.addEventListener('click',()=>{filterBtns.forEach(b=>b.classList.remove('active')); btn.classList.add('active');
-                cards.forEach(c=>c.classList.toggle('hide',!(btn.dataset.filter==='all'||c.dataset.category.includes(btn.dataset.filter))));}));
-            const modal=$('#project-modal'), closeBtn=modal.querySelector('.modal-close-btn');
-            $$('.read-more-btn').forEach(b=>b.addEventListener('click',()=>{$('#modal-project-title').textContent=b.dataset.title; $('#modal-project-image').src=b.dataset.image; $('#modal-project-description').textContent=b.dataset.description.replace(/&#10;/g,'\n'); modal.classList.add('active');}));
-            const closeModal=()=>modal.classList.remove('active'); closeBtn.addEventListener('click',closeModal); modal.addEventListener('click',e=>{if(e.target===modal) closeModal();});
-        
+            
             // =================================================================
             // 기업 분석 로직
             // =================================================================
@@ -296,13 +310,12 @@
             const panel = $('#analysis-content');
             const statusEl = $('#analysis-status');
 
-            let companyList = []; // DART의 모든 회사 목록을 저장할 배열
+            let companyList = []; 
 
-            // 페이지 로드 시 CORPCODE.xml 파일을 비동기적으로 로드하고 파싱하는 함수
             async function loadCompanyCodes() {
                 try {
                     statusEl.textContent = 'DART 기업 목록을 불러오는 중...';
-                    const response = await fetch('./CORPCODE.xml'); // 같은 폴더에 있는 파일을 fetch
+                    const response = await fetch('./CORPCODE.xml'); 
                     if (!response.ok) throw new Error('CORPCODE.xml 파일을 불러올 수 없습니다.');
                     
                     const xmlString = await response.text();
@@ -324,7 +337,6 @@
                 }
             }
 
-            // DART API 호출 함수
             async function fetchCompanyData(code) {
                 statusEl.textContent = '기본 정보를 DART에서 불러오는 중...';
                 const y = (new Date()).getFullYear();
@@ -339,7 +351,6 @@
                 return { overviewData: d1, financeData: d2 };
             }
 
-            // Gemini API 호출 함수
             async function fetchGeneratedAnalysis(name, bizArea) {
                 statusEl.textContent = '✅ 기본 정보 로딩 완료! Gemini로 추가 분석을 생성하는 중...';
                 const r = await fetch(`${API_BASE}/api/generate-analysis`, {
@@ -354,9 +365,7 @@
                 return await r.json();
             }
 
-            // DART 데이터 화면에 표시
             function populateAnalysisData({ overviewData, financeData }) {
-                // 기존 데이터를 초기화합니다.
                 const allDataCells = $$('#analysis-content td, #analysis-content ul');
                 allDataCells.forEach(el => {
                     if (el.tagName === 'UL') {
@@ -366,14 +375,11 @@
                     }
                 });
                 
-                // Gemini 분석 정보 로딩 중 메시지 설정
                 ['corp-vision','corp-services','corp-performance','swot-strategy','industry-method','industry-result','industry-competitors','industry-competitor-analysis','job-duties','job-description','job-knowledge','job-skills','job-attitude','job-certs','job-env','job-career-dev','my-knowledge','my-skills','my-attitude','my-plan1','my-plan2','my-plan3']
                     .forEach(id => setText(id,'Gemini 분석 정보 로딩 중...'));
                 ['swot-strength','swot-weakness','swot-opportunity','swot-threat']
                     .forEach(id => setList(id, ['Gemini 분석 정보 로딩 중...']));
 
-
-                // DART 정보 채우기
                 setText('corp-name', overviewData.corp_name);
                 safeLinkIntoCell('corp-website', overviewData.hm_url);
                 const est = overviewData.est_dt;
@@ -394,7 +400,6 @@
                 setText('corp-net-income', `${fmt(net?.thstrm_amount)}${y(net,0)}, ${fmt(net?.frmtrm_amount)}${y(net,1)}, ${fmt(net?.bfefrmtrm_amount)}${y(net,2)}`);
             }
             
-            // Gemini 데이터 화면에 표시 (최종 버전)
             function populateGeminiData(g) {
                 if (g?.error) {
                     ['corp-vision','corp-services','corp-performance','swot-strategy','industry-method','industry-result','industry-competitors','industry-competitor-analysis','job-duties','job-description','job-knowledge','job-skills','job-attitude','job-certs','job-env','job-career-dev','my-knowledge','my-skills','my-attitude','my-plan1','my-plan2','my-plan3']
@@ -402,7 +407,6 @@
                     return;
                 }
 
-                // 기본 정보
                 setText('corp-vision', g.vision);
                 const servicesEl = document.getElementById('corp-services');
                 if (servicesEl && Array.isArray(g.productsAndServices)) {
@@ -412,7 +416,6 @@
                 }
                 setText('corp-performance', g.performanceSummary);
 
-                // SWOT 분석
                 if (g.swot) {
                     setList('swot-strength', g.swot.strength);
                     setList('swot-weakness', g.swot.weakness);
@@ -421,7 +424,6 @@
                     setText('swot-strategy', g.swot.strategy);
                 }
 
-                // 산업 분석
                 if (g.industryAnalysis) {
                     setText('industry-method', g.industryAnalysis.method);
                     setText('industry-result', g.industryAnalysis.result);
@@ -429,7 +431,6 @@
                     setText('industry-competitor-analysis', g.industryAnalysis.competitorAnalysis);
                 }
 
-                // 직무 분석
                 if (g.job) {
                     setText('job-duties', g.job.duties);
                     setText('job-description', g.job.description);
@@ -441,7 +442,6 @@
                     setText('job-career-dev', g.job.careerDev);
                 }
                 
-                // 보유역량 및 자기분석
                 if (g.selfAnalysis) {
                     setText('my-knowledge', g.selfAnalysis.knowledge);
                     setText('my-skills', g.selfAnalysis.skills);
@@ -452,7 +452,6 @@
                 }
             }
 
-            // 검색 버튼 클릭 이벤트 핸들러
             btn.addEventListener('click', async () => {
                 const query = input.value.trim();
                 if (!query) {
@@ -476,11 +475,11 @@
                 
                 try {
                     const dartData = await fetchCompanyData(code);
-                    populateAnalysisData(dartData); // DART 데이터 먼저 표시 및 기존 Gemini 데이터 초기화
+                    populateAnalysisData(dartData); 
                     panel.classList.remove('hidden');
                     
                     const geminiData = await fetchGeneratedAnalysis(dartData.overviewData.corp_name, dartData.overviewData.induty_code_nm);
-                    populateGeminiData(geminiData); // Gemini 데이터 표시
+                    populateGeminiData(geminiData); 
                     
                     statusEl.textContent = `✅ '${query}'에 대한 전체 분석이 완료되었습니다.`;
                 } catch (err) {
@@ -493,11 +492,115 @@
                 }
             });
 
-            // 페이지가 처음 로드될 때 기업 목록을 불러옵니다.
             loadCompanyCodes();
 
-            // 인터뷰 렌더링(생략: 기존 안전 버전 유지)
-            // ...
+            // =================================================================
+            // [수정됨] 인터뷰 기록 로직
+            // =================================================================
+            const interviewForm = $('#interview-form');
+            const interviewBoard = $('#interview-board');
+            const interviewStatus = $('#interview-status');
+            
+            let interviews = JSON.parse(localStorage.getItem('interviews')) || [];
+
+            // [수정됨] 렌더링 함수 (HTML 구조 변경)
+            function renderInterviews() {
+                interviewBoard.innerHTML = ''; 
+                if (interviews.length === 0) {
+                    interviewBoard.innerHTML = '<p style="text-align: center; color: var(--subtext-color);">아직 기록된 인터뷰가 없습니다.</p>';
+                    return;
+                }
+                
+                const sortedInterviews = interviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                sortedInterviews.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'interview-card'; // 'expanded' 클래스는 클릭 시 추가/제거
+                    card.dataset.id = item.id;
+                    
+                    // HTML 구조를 토글(아코디언) 형태로 변경
+                    card.innerHTML = `
+                        <div class="interview-card-toggle" role="button" tabindex="0">
+                            <h4>${item.company}</h4>
+                            <span>${item.date}</span>
+                            <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="interview-card-content">
+                            <div class="interview-card-meta">
+                                <span><strong>지원 직무:</strong> ${item.position}</span>
+                                <span><strong>면접 단계:</strong> ${item.stage}</span>
+                            </div>
+                            <strong>주요 질의응답</strong>
+                            <p>${item.questions.replace(/\n/g, '<br>') || '내용 없음'}</p>
+                            <strong>개인적인 소감 / 피드백</strong>
+                            <p>${item.review.replace(/\n/g, '<br>') || '내용 없음'}</p>
+                            <button class="delete-interview-btn">기록 삭제</button>
+                        </div>
+                    `;
+                    interviewBoard.appendChild(card);
+                });
+            }
+
+            function saveInterviews() {
+                localStorage.setItem('interviews', JSON.stringify(interviews));
+            }
+
+            interviewForm.addEventListener('submit', (e) => {
+                e.preventDefault(); 
+                
+                const company = $('#interview-company').value.trim();
+                const date = $('#interview-date').value;
+                const position = $('#interview-position').value.trim();
+                const stage = $('#interview-stage').value;
+                const questions = $('#interview-questions').value.trim();
+                const review = $('#interview-review').value.trim();
+
+                if (!company || !date || !position || !stage) {
+                    interviewStatus.textContent = '회사명, 면접일, 지원 직무, 면접 단계는 필수입니다.';
+                    interviewStatus.className = 'form-status error';
+                    return;
+                }
+
+                const newInterview = {
+                    id: Date.now().toString(), 
+                    company, date, position, stage, questions, review
+                };
+
+                interviews.push(newInterview);
+                saveInterviews();
+                renderInterviews();
+
+                interviewForm.reset();
+                interviewStatus.textContent = '인터뷰 기록이 성공적으로 추가되었습니다.';
+                interviewStatus.className = 'form-status success';
+                setTimeout(() => { interviewStatus.textContent = ''; }, 3000);
+            });
+
+            // [수정됨] 클릭 이벤트 핸들러 (이벤트 위임 - 토글 및 삭제 통합)
+            interviewBoard.addEventListener('click', (e) => {
+                // 삭제 버튼 클릭 시
+                const deleteBtn = e.target.closest('.delete-interview-btn');
+                if (deleteBtn) {
+                    const card = deleteBtn.closest('.interview-card');
+                    const idToDelete = card.dataset.id;
+                    
+                    if (confirm('이 기록을 정말 삭제하시겠습니까?')) {
+                        interviews = interviews.filter(item => item.id !== idToDelete);
+                        saveInterviews();
+                        renderInterviews();
+                    }
+                    return; // 삭제 로직 후 종료
+                }
+
+                // 토글 영역 클릭 시
+                const toggle = e.target.closest('.interview-card-toggle');
+                if (toggle) {
+                    const card = toggle.closest('.interview-card');
+                    card.classList.toggle('expanded');
+                }
+            });
+
+            renderInterviews();
         });
     </script>
     
