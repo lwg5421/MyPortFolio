@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Not NULL | 끊임없이 성장하는 개발자 포트폴리오</title>
     
-    <meta name="description" content="React와 Node.js에 강점을 가진 개발자 Not NULL의 기술 스택, 프로젝트, 경력을 담은 포트폴리오입니다.">
+    <meta name="description" content="AI가 DART 공시 정보를 요약 분석해 드립니다. Not NULL의 데이터 기반 기업 분석 툴로 인터뷰를 준비하세요.">
     <meta name="keywords" content="웹개발자, 프론트엔드, 백엔드, 포트폴리오, React, Node.js, Not NULL, 기업분석">
     <meta name="author" content="Not NULL">
     
     <meta property="og:title" content="Not NULL | 개발자 포트폴리오">
     <meta property="og:description" content="기술로 더 나은 세상을 만드는 개발자, Not NULL의 포트폴리오를 만나보세요.">
     <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=Not+NULL's+Portfolio">
-    <meta property="og:url" content="https://your-domain.com">
     <meta property="og:type" content="website">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
@@ -31,7 +30,7 @@
         html { scroll-behavior: smooth; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; background-color: var(--bg-color); color: var(--text-color); transition: background-color 0.3s, color 0.3s; }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        a { text-decoration: none; color: var(--accent-color); }
+        a { text-decoration: none; color: var(--accent-color); cursor: pointer; }
         section { padding: 80px 0; overflow-x: hidden; }
         .page-section { display: none; }
         .section-title { font-size: 2.8rem; text-align: center; margin-bottom: 60px; font-weight: 700; }
@@ -64,9 +63,6 @@
         .form-status.error { color: #dc3545; }
         #interview-board { max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 20px; }
         
-        /* =================================== */
-        /* [수정됨] 인터뷰 카드 토글 스타일 */
-        /* =================================== */
         .interview-card {
             background-color: var(--section-bg-color);
             border-radius: 8px;
@@ -147,16 +143,12 @@
             color: #fff; 
         }
 
-        /* [수정됨] 카드가 펼쳐졌을 때 스타일 */
         .interview-card.expanded .interview-card-content { 
             display: block; 
         }
         .interview-card.expanded .toggle-icon { 
             transform: rotate(180deg); 
         }
-        /* =================================== */
-        /* 스타일 수정 끝 */
-        /* =================================== */
 
         .analysis-section { margin-bottom: 50px; }
         .analysis-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
@@ -182,7 +174,7 @@
 <body>
     <header class="header">
         <div class="container">
-            <h1 class="logo"><a data-target="home">HGD</a></h1>
+            <h1 class="logo"><a data-target="home">Not NULL</a></h1>
             <div class="header-right">
                 <nav class="navigation">
                     <ul>
@@ -229,6 +221,7 @@
         <section id="interview" class="page-section">
             <div class="container">
                 <h2 class="section-title" data-aos="fade-up">인터뷰 기록</h2>
+                <p style="text-align: center; margin-bottom: 20px; color: var(--subtext-color);">누구나 자유롭게 작성할 수 있는 공유 공간입니다.</p>
                 <form id="interview-form" data-aos="fade-up" data-aos-delay="100">
                     <div class="form-grid">
                         <div class="form-group"><label for="interview-company">회사명</label><input type="text" id="interview-company" required></div>
@@ -256,269 +249,240 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // ---- 외부 라이브러리 실패해도 전체 로직 유지 ----
-            try { AOS.init({ duration: 800, once: true }); }
-            catch (e) { console.warn('AOS not available, continuing without it.', e); }
+    <script type="module">
+        // =================================================================
+        // 1. Firebase 라이브러리 불러오기 (CDN)
+        // =================================================================
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+        // =================================================================
+        // 2. [중요] 여기에 아까 복사한 Firebase 설정값을 붙여넣으세요!
+        // =================================================================
+        // 🔴 여기에 아까 복사한 const firebaseConfig = { ... } 내용을 붙여넣으세요!
+        const firebaseConfig = {
+            apiKey: "AIzaSyB7KgfQc9cu-AwnH9BVkGvyt-RmrNb4Q8E",
+    authDomain: "portfolio-71627.firebaseapp.com",
+    projectId: "portfolio-71627",
+    storageBucket: "portfolio-71627.firebasestorage.app",
+    messagingSenderId: "650782160274",
+    appId: "1:650782160274:web:b95e80ce6a52336e51bd4b",
+    measurementId: "G-HR0S0WQ1L4"
+        };
+
+        // Firebase 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // =================================================================
+        // 3. 기존 페이지 로직 (AOS, TypeIt, 네비게이션 등)
+        // =================================================================
         
-            // ---- 공용 함수 ----
-            const $ = (s, r=document) => r.querySelector(s);
-            const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
-            const setText = (id, v) => { const el=document.getElementById(id); if(el) el.textContent = (v ?? '-'); };
-            const setList = (id, items=[]) => { const ul=document.getElementById(id); if(!ul) return;
-                ul.innerHTML=''; if(!Array.isArray(items)||!items.length){const li=document.createElement('li');li.textContent='-';ul.appendChild(li);return;}
-                items.forEach(t=>{const li=document.createElement('li'); li.textContent=String(t); ul.appendChild(li);});
-            };
-            const safeLinkIntoCell = (id, raw) => {
-                const td=document.getElementById(id); if(!td) return; td.textContent='-';
-                if(!raw) return; let href=String(raw).trim(); if(!/^https?:\/\//i.test(href)) href='https://'+href;
-                try{ new URL(href); }catch{return;}
-                const a=document.createElement('a'); a.href=href; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent=raw;
-                td.innerHTML=''; td.appendChild(a);
-            };
-        
-            // ---- API 베이스 ----
-            const API_BASE = (location.protocol.startsWith('http'))
-                ? `${location.protocol}//${location.hostname}:5000`
-                : 'http://127.0.0.1:5000';
-        
-            // ---- 페이지 전환/네비 ----
-            const navLinks = $$('.navigation a, .logo a');
-            const allSections = $$('main > section');
-            const homeSections = $$('.home-section');
-            function showPage(id){ allSections.forEach(s=>s.style.display='none'); (id==='home'?homeSections:[document.getElementById(id)]).forEach(s=>s&&(s.style.display='block')); window.scrollTo(0,0); }
-            navLinks.forEach(link=>link.addEventListener('click',e=>{e.preventDefault(); const id=link.dataset.target;
-                navLinks.forEach(l=>l.classList.remove('active')); $$(`[data-target="${id}"]`).forEach(a=>a.classList.add('active'));
-                if(window.innerWidth<=768) $('.navigation').classList.remove('active'); showPage(id);
-            }));
-            showPage('home');
-        
-            // ---- 기타 UI ----
-            try{ new TypeIt("#typing-subtitle",{strings:["배우고 성장하는 개발자입니다.","사용자 경험을 중요하게 생각합니다."],speed:75,loop:true,loopDelay:3000,breakLines:false}).go(); }
-            catch(e){ console.warn('TypeIt not available, continuing.', e); }
-            $('.menu-toggle-btn').addEventListener('click',()=>$('.navigation').classList.toggle('active'));
-            const dmt=$('.dark-mode-toggle'); if(localStorage.getItem('theme')==='dark') document.body.classList.add('dark-mode');
-            dmt.addEventListener('click',()=>{document.body.classList.toggle('dark-mode'); localStorage.setItem('theme',document.body.classList.contains('dark-mode')?'dark':'light');});
-            const backBtn=$('#back-to-top'); window.addEventListener('scroll',()=>backBtn.classList.toggle('show',window.scrollY>300)); backBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-            
-            // =================================================================
-            // 기업 분석 로직
-            // =================================================================
-            const input = $('#company-search-input');
-            const btn = $('#company-search-btn');
-            const panel = $('#analysis-content');
-            const statusEl = $('#analysis-status');
+        // ---- 외부 라이브러리 (AOS, TypeIt) ----
+        try { AOS.init({ duration: 800, once: true }); }
+        catch (e) { console.warn('AOS not available.', e); }
+        try { new TypeIt("#typing-subtitle",{strings:["배우고 성장하는 개발자입니다.","사용자 경험을 중요하게 생각합니다."],speed:75,loop:true,loopDelay:3000,breakLines:false}).go(); }
+        catch(e){ console.warn('TypeIt not available.', e); }
 
-            let companyList = []; 
+        // ---- 공용 함수 ----
+        const $ = (s, r = document) => r.querySelector(s);
+        const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+        const setText = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = (v ?? '-'); };
+        const setList = (id, items = []) => { const ul = document.getElementById(id); if (!ul) return; ul.innerHTML = ''; if (!Array.isArray(items) || !items.length) { const li = document.createElement('li'); li.textContent = '-'; ul.appendChild(li); return; } items.forEach(t => { const li = document.createElement('li'); li.textContent = String(t); ul.appendChild(li); }); };
+        const safeLinkIntoCell = (id, raw) => { const td = document.getElementById(id); if (!td) return; td.textContent = '-'; if (!raw) return; let href = String(raw).trim(); if (!/^https?:\/\//i.test(href)) href = 'https://' + href; try { new URL(href); } catch { return; } const a = document.createElement('a'); a.href = href; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = raw; td.innerHTML = ''; td.appendChild(a); };
 
-            async function loadCompanyCodes() {
-                try {
-                    statusEl.textContent = 'DART 기업 목록을 불러오는 중...';
-                    const response = await fetch('./CORPCODE.xml'); 
-                    if (!response.ok) throw new Error('CORPCODE.xml 파일을 불러올 수 없습니다.');
-                    
-                    const xmlString = await response.text();
-                    const parser = new DOMParser();
-                    const xmlDoc = parser.parseFromString(xmlString, "text/xml");
-                    
-                    const items = xmlDoc.querySelectorAll('list');
-                    companyList = Array.from(items).map(item => ({
-                        name: item.querySelector('corp_name').textContent.trim(),
-                        code: item.querySelector('corp_code').textContent.trim()
-                    }));
-                    
-                    statusEl.textContent = `✅ 총 ${companyList.length.toLocaleString()}개 기업 목록 로딩 완료! 분석할 기업명을 검색해주세요.`;
-                    console.log('DART 기업 목록 로딩 성공:', companyList);
+        // === [중요] 님의 Render 서버 주소입니다 ===
+        const API_BASE = 'https://portfolio-backend-4d57.onrender.com';
 
-                } catch (err) {
-                    statusEl.textContent = `😥 기업 목록 로딩 실패: ${err.message}. CORPCODE.xml 파일이 있는지 확인해주세요.`;
-                    console.error('기업 목록 로딩 실패:', err);
-                }
-            }
+        // ---- 페이지 전환/네비 ----
+        const navLinks = $$('.navigation a, .logo a');
+        const allSections = $$('main > section');
+        const homeSections = $$('.home-section');
+        function showPage(id) { allSections.forEach(s => s.style.display = 'none'); (id === 'home' ? homeSections : [document.getElementById(id)]).forEach(s => s && (s.style.display = 'block')); window.scrollTo(0, 0); }
+        navLinks.forEach(link => link.addEventListener('click', e => { e.preventDefault(); const id = link.dataset.target; navLinks.forEach(l => l.classList.remove('active')); $$(`[data-target="${id}"]`).forEach(a => a.classList.add('active')); if (window.innerWidth <= 768) $('.navigation').classList.remove('active'); showPage(id); }));
+        showPage('home');
 
-            async function fetchCompanyData(code) {
-                statusEl.textContent = '기본 정보를 DART에서 불러오는 중...';
-                const y = (new Date()).getFullYear();
-                const [r1, r2] = await Promise.all([
-                    fetch(`${API_BASE}/api/company?code=${code}`),
-                    fetch(`${API_BASE}/api/finance?code=${code}&year=${y - 1}`)
-                ]);
-                if (!r1.ok || !r2.ok) throw new Error('백엔드 서버 호출에 실패했습니다.');
-                const d1 = await r1.json(), d2 = await r2.json();
-                if (d1.status !== "000" && d1.status !== "013") throw new Error(d1.message || '기업 기본정보 오류');
-                if (d2.status !== "000" && d2.status !== "013") throw new Error('재무 정보를 가져올 수 없습니다.');
-                return { overviewData: d1, financeData: d2 };
-            }
+        // ---- 기타 UI (다크모드, 맨위로) ----
+        $('.menu-toggle-btn').addEventListener('click', () => $('.navigation').classList.toggle('active'));
+        const dmt = $('.dark-mode-toggle'); if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
+        dmt.addEventListener('click', () => { document.body.classList.toggle('dark-mode'); localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light'); });
+        const backBtn = $('#back-to-top'); window.addEventListener('scroll', () => backBtn.classList.toggle('show', window.scrollY > 300)); backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-            async function fetchGeneratedAnalysis(name, bizArea) {
-                statusEl.textContent = '✅ 기본 정보 로딩 완료! Gemini로 추가 분석을 생성하는 중...';
-                const r = await fetch(`${API_BASE}/api/generate-analysis`, {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, bizArea })
-                });
-                if (!r.ok) {
-                    const err = await r.json().catch(() => ({}));
-                    const extra = err.upstream || err.detail || err.error || `HTTP ${r.status}`;
-                    throw new Error(`Gemini 분석 데이터 생성에 실패했습니다. ${extra}`);
-                }
-                return await r.json();
-            }
+        // =================================================================
+        // 4. 기업 분석 로직 (백엔드 API 호출)
+        // =================================================================
+        const input = $('#company-search-input');
+        const btn = $('#company-search-btn');
+        const panel = $('#analysis-content');
+        const statusEl = $('#analysis-status');
 
-            function populateAnalysisData({ overviewData, financeData }) {
-                const allDataCells = $$('#analysis-content td, #analysis-content ul');
-                allDataCells.forEach(el => {
-                    if (el.tagName === 'UL') {
-                        el.innerHTML = '';
-                    } else {
-                        el.textContent = '';
-                    }
-                });
-                
-                ['corp-vision','corp-services','corp-performance','swot-strategy','industry-method','industry-result','industry-competitors','industry-competitor-analysis','job-duties','job-description','job-knowledge','job-skills','job-attitude','job-certs','job-env','job-career-dev','my-knowledge','my-skills','my-attitude','my-plan1','my-plan2','my-plan3']
-                    .forEach(id => setText(id,'Gemini 분석 정보 로딩 중...'));
-                ['swot-strength','swot-weakness','swot-opportunity','swot-threat']
-                    .forEach(id => setList(id, ['Gemini 분석 정보 로딩 중...']));
+        async function fetchCompanyData(code) {
+            statusEl.textContent = '기본 정보를 DART에서 불러오는 중...';
+            const y = (new Date()).getFullYear();
+            const [r1, r2] = await Promise.all([
+                fetch(`${API_BASE}/api/company?code=${code}`),
+                fetch(`${API_BASE}/api/finance?code=${code}&year=${y - 1}`)
+            ]);
+            if (!r1.ok || !r2.ok) throw new Error('백엔드 DART API 호출에 실패했습니다.');
+            const d1 = await r1.json(), d2 = await r2.json();
+            if (d1.status !== "000" && d1.status !== "013") throw new Error(d1.message || '기업 기본정보 오류');
+            if (d2.status !== "000" && d2.status !== "013") throw new Error('재무 정보를 가져올 수 없습니다.');
+            return { overviewData: d1, financeData: d2 };
+        }
 
-                setText('corp-name', overviewData.corp_name);
-                safeLinkIntoCell('corp-website', overviewData.hm_url);
-                const est = overviewData.est_dt;
-                if (est && /^\d{8}$/.test(est)) setText('corp-founded', `${est.slice(0,4)}년 ${est.slice(4,6)}월 ${est.slice(6,8)}일`);
-                else setText('corp-founded', '-');
-                setText('corp-ceo', overviewData.ceo_nm);
-                setText('corp-location', overviewData.adres);
-                setText('corp-biz-area', overviewData.induty_code_nm);
-
-                const find = n => financeData.list?.find(i => i.account_nm === n);
-                const fmt = s => { if (!s) return '-'; const v = parseInt(s, 10); return isNaN(v) ? '-' : `${(v / 100000000).toLocaleString('ko-KR')} 억원`; };
-                const rev = find('매출액') || find('수익(매출)');
-                const pro = find('영업이익');
-                const net = find('당기순이익');
-                const y = (it, off) => it?.bsns_year ? ` (${parseInt(it.bsns_year, 10) - off})` : '';
-                setText('corp-revenue', `${fmt(rev?.thstrm_amount)}${y(rev,0)}, ${fmt(rev?.frmtrm_amount)}${y(rev,1)}, ${fmt(rev?.bfefrmtrm_amount)}${y(rev,2)}`);
-                setText('corp-profit', `${fmt(pro?.thstrm_amount)}${y(pro,0)}, ${fmt(pro?.frmtrm_amount)}${y(pro,1)}, ${fmt(pro?.bfefrmtrm_amount)}${y(pro,2)}`);
-                setText('corp-net-income', `${fmt(net?.thstrm_amount)}${y(net,0)}, ${fmt(net?.frmtrm_amount)}${y(net,1)}, ${fmt(net?.bfefrmtrm_amount)}${y(net,2)}`);
-            }
-            
-            function populateGeminiData(g) {
-                if (g?.error) {
-                    ['corp-vision','corp-services','corp-performance','swot-strategy','industry-method','industry-result','industry-competitors','industry-competitor-analysis','job-duties','job-description','job-knowledge','job-skills','job-attitude','job-certs','job-env','job-career-dev','my-knowledge','my-skills','my-attitude','my-plan1','my-plan2','my-plan3']
-                        .forEach(id => setText(id, 'Gemini 분석 중 오류가 발생했습니다.'));
-                    return;
-                }
-
-                setText('corp-vision', g.vision);
-                const servicesEl = document.getElementById('corp-services');
-                if (servicesEl && Array.isArray(g.productsAndServices)) {
-                    servicesEl.innerHTML = g.productsAndServices.join('<br>');
-                } else {
-                    setText('corp-services', '-');
-                }
-                setText('corp-performance', g.performanceSummary);
-
-                if (g.swot) {
-                    setList('swot-strength', g.swot.strength);
-                    setList('swot-weakness', g.swot.weakness);
-                    setList('swot-opportunity', g.swot.opportunity);
-                    setList('swot-threat', g.swot.threat);
-                    setText('swot-strategy', g.swot.strategy);
-                }
-
-                if (g.industryAnalysis) {
-                    setText('industry-method', g.industryAnalysis.method);
-                    setText('industry-result', g.industryAnalysis.result);
-                    setText('industry-competitors', g.industryAnalysis.competitors);
-                    setText('industry-competitor-analysis', g.industryAnalysis.competitorAnalysis);
-                }
-
-                if (g.job) {
-                    setText('job-duties', g.job.duties);
-                    setText('job-description', g.job.description);
-                    setText('job-knowledge', g.job.knowledge);
-                    setText('job-skills', g.job.skills);
-                    setText('job-attitude', g.job.attitude);
-                    setText('job-certs', g.job.certs);
-                    setText('job-env', g.job.env);
-                    setText('job-career-dev', g.job.careerDev);
-                }
-                
-                if (g.selfAnalysis) {
-                    setText('my-knowledge', g.selfAnalysis.knowledge);
-                    setText('my-skills', g.selfAnalysis.skills);
-                    setText('my-attitude', g.selfAnalysis.attitude);
-                    setText('my-plan1', g.selfAnalysis.actionPlan1);
-                    setText('my-plan2', g.selfAnalysis.actionPlan2);
-                    setText('my-plan3', g.selfAnalysis.actionPlan3);
-                }
-            }
-
-            btn.addEventListener('click', async () => {
-                const query = input.value.trim();
-                if (!query) {
-                    statusEl.textContent = '검색할 기업명을 입력해주세요.';
-                    return;
-                }
-
-                const cleanQuery = query.replace(/\(주\)/g, '').trim();
-                const foundCompany = companyList.find(c => c.name.replace(/\(주\)/g, '').trim() === cleanQuery);
-                
-                if (!foundCompany) {
-                    statusEl.textContent = `😥 '${query}'에 대한 기업 정보를 찾을 수 없습니다. 정확한 기업명을 입력해주세요.`;
-                    panel.classList.add('hidden');
-                    return;
-                }
-
-                const code = foundCompany.code;
-                const prev = btn.textContent;
-                btn.disabled = true;
-                btn.textContent = '검색 중...';
-                
-                try {
-                    const dartData = await fetchCompanyData(code);
-                    populateAnalysisData(dartData); 
-                    panel.classList.remove('hidden');
-                    
-                    const geminiData = await fetchGeneratedAnalysis(dartData.overviewData.corp_name, dartData.overviewData.induty_code_nm);
-                    populateGeminiData(geminiData); 
-                    
-                    statusEl.textContent = `✅ '${query}'에 대한 전체 분석이 완료되었습니다.`;
-                } catch (err) {
-                    panel.classList.add('hidden');
-                    statusEl.textContent = `😥 데이터 조회 실패: ${err.message}`;
-                    console.error(err);
-                } finally {
-                    btn.disabled = false;
-                    btn.textContent = prev;
-                }
+        async function fetchGeneratedAnalysis(name, bizArea) {
+            statusEl.textContent = '✅ 기본 정보 로딩 완료! Gemini로 추가 분석을 생성하는 중...';
+            const r = await fetch(`${API_BASE}/api/generate-analysis`, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, bizArea })
             });
+            if (!r.ok) { const err = await r.json().catch(() => ({})); const extra = err.upstream || err.detail || err.error || `HTTP ${r.status}`; throw new Error(`Gemini 분석 데이터 생성에 실패했습니다. ${extra}`); }
+            return await r.json();
+        }
 
-            loadCompanyCodes();
+        // --- populateAnalysisData 함수 ---
+        function populateAnalysisData({ overviewData, financeData }) {
+            const allDataCells = $$('#analysis-content td, #analysis-content ul');
+            allDataCells.forEach(el => {
+                if (el.tagName === 'UL') { el.innerHTML = ''; } else { el.textContent = ''; }
+            });
+            ['corp-vision','corp-services','corp-performance','swot-strategy','industry-method','industry-result','industry-competitors','industry-competitor-analysis','job-duties','job-description','job-knowledge','job-skills','job-attitude','job-certs','job-env','job-career-dev','my-knowledge','my-skills','my-attitude','my-plan1','my-plan2','my-plan3']
+                .forEach(id => setText(id,'Gemini 분석 정보 로딩 중...'));
+            ['swot-strength','swot-weakness','swot-opportunity','swot-threat']
+                .forEach(id => setList(id, ['Gemini 분석 정보 로딩 중...']));
 
-            // =================================================================
-            // [수정됨] 인터뷰 기록 로직
-            // =================================================================
-            const interviewForm = $('#interview-form');
-            const interviewBoard = $('#interview-board');
-            const interviewStatus = $('#interview-status');
+            setText('corp-name', overviewData.corp_name);
+            safeLinkIntoCell('corp-website', overviewData.hm_url);
+            const est = overviewData.est_dt;
+            if (est && /^\d{8}$/.test(est)) setText('corp-founded', `${est.slice(0,4)}년 ${est.slice(4,6)}월 ${est.slice(6,8)}일`);
+            else setText('corp-founded', '-');
+            setText('corp-ceo', overviewData.ceo_nm);
+            setText('corp-location', overviewData.adres);
+            setText('corp-biz-area', overviewData.induty_code_nm);
+
+            const find = n => financeData.list?.find(i => i.account_nm === n);
+            const fmt = s => { if (!s) return '-'; const v = parseInt(s, 10); return isNaN(v) ? '-' : `${(v / 100000000).toLocaleString('ko-KR')} 억원`; };
+            const rev = find('매출액') || find('수익(매출)');
+            const pro = find('영업이익');
+            const net = find('당기순이익');
+            const y = (it, off) => it?.bsns_year ? ` (${parseInt(it.bsns_year, 10) - off})` : '';
+            setText('corp-revenue', `${fmt(rev?.thstrm_amount)}${y(rev,0)}, ${fmt(rev?.frmtrm_amount)}${y(rev,1)}, ${fmt(rev?.bfefrmtrm_amount)}${y(rev,2)}`);
+            setText('corp-profit', `${fmt(pro?.thstrm_amount)}${y(pro,0)}, ${fmt(pro?.frmtrm_amount)}${y(pro,1)}, ${fmt(pro?.bfefrmtrm_amount)}${y(pro,2)}`);
+            setText('corp-net-income', `${fmt(net?.thstrm_amount)}${y(net,0)}, ${fmt(net?.frmtrm_amount)}${y(net,1)}, ${fmt(net?.bfefrmtrm_amount)}${y(net,2)}`);
+        }
+        
+        // --- populateGeminiData 함수 ---
+        function populateGeminiData(g) {
+            if (g?.error) {
+                ['corp-vision','corp-services','corp-performance','swot-strategy','industry-method','industry-result','industry-competitors','industry-competitor-analysis','job-duties','job-description','job-knowledge','job-skills','job-attitude','job-certs','job-env','job-career-dev','my-knowledge','my-skills','my-attitude','my-plan1','my-plan2','my-plan3']
+                    .forEach(id => setText(id, 'Gemini 분석 중 오류가 발생했습니다.'));
+                return;
+            }
+            setText('corp-vision', g.vision);
+            const servicesEl = document.getElementById('corp-services');
+            if (servicesEl && Array.isArray(g.productsAndServices)) {
+                servicesEl.innerHTML = g.productsAndServices.join('<br>');
+            } else { setText('corp-services', '-'); }
+            setText('corp-performance', g.performanceSummary);
+            if (g.swot) {
+                setList('swot-strength', g.swot.strength);
+                setList('swot-weakness', g.swot.weakness);
+                setList('swot-opportunity', g.swot.opportunity);
+                setList('swot-threat', g.swot.threat);
+                setText('swot-strategy', g.swot.strategy);
+            }
+            if (g.industryAnalysis) {
+                setText('industry-method', g.industryAnalysis.method);
+                setText('industry-result', g.industryAnalysis.result);
+                setText('industry-competitors', g.industryAnalysis.competitors);
+                setText('industry-competitor-analysis', g.industryAnalysis.competitorAnalysis);
+            }
+            if (g.job) {
+                setText('job-duties', g.job.duties);
+                setText('job-description', g.job.description);
+                setText('job-knowledge', g.job.knowledge);
+                setText('job-skills', g.job.skills);
+                setText('job-attitude', g.job.attitude);
+                setText('job-certs', g.job.certs);
+                setText('job-env', g.job.env);
+                setText('job-career-dev', g.job.careerDev);
+            }
+            if (g.selfAnalysis) {
+                setText('my-knowledge', g.selfAnalysis.knowledge);
+                setText('my-skills', g.selfAnalysis.skills);
+                setText('my-attitude', g.selfAnalysis.attitude);
+                setText('my-plan1', g.selfAnalysis.actionPlan1);
+                setText('my-plan2', g.selfAnalysis.actionPlan2);
+                setText('my-plan3', g.selfAnalysis.actionPlan3);
+            }
+        }
+
+        // [검색 버튼 클릭 이벤트]
+        btn.addEventListener('click', async () => {
+            const query = input.value.trim();
+            if (!query) { statusEl.textContent = '검색할 기업명을 입력해주세요.'; return; }
+            const prev = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = '검색 중...';
             
-            let interviews = JSON.parse(localStorage.getItem('interviews')) || [];
+            let companyCode = null;
+            let companyName = null;
 
-            // [수정됨] 렌더링 함수 (HTML 구조 변경)
-            function renderInterviews() {
+            try {
+                statusEl.textContent = `'${query}' 기업 코드를 백엔드에서 검색 중...`;
+                const searchRes = await fetch(`${API_BASE}/api/search?name=${encodeURIComponent(query)}`);
+                if (!searchRes.ok) { const errData = await searchRes.json().catch(() => ({})); throw new Error(errData.message || `기업 코드 검색 실패 (HTTP ${searchRes.status})`); }
+                const searchData = await searchRes.json();
+                if (searchData.status !== '000' || !searchData.corp_code) { throw new Error(searchData.message || '일치하는 기업 코드를 찾지 못했습니다.'); }
+                
+                companyCode = searchData.corp_code;
+                companyName = searchData.corp_name; 
+
+                const dartData = await fetchCompanyData(companyCode);
+                populateAnalysisData(dartData); 
+                panel.classList.remove('hidden');
+                
+                const geminiData = await fetchGeneratedAnalysis(companyName, dartData.overviewData.induty_code_nm);
+                populateGeminiData(geminiData); 
+                
+                statusEl.textContent = `✅ '${companyName}'에 대한 전체 분석이 완료되었습니다.`;
+            } catch (err) {
+                panel.classList.add('hidden');
+                statusEl.textContent = `😥 데이터 조회 실패: ${err.message}`;
+                console.error(err);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = prev;
+            }
+        });
+        
+        statusEl.textContent = `분석할 기업명을 검색해주세요. (예: 삼성전자)`;
+
+        // =================================================================
+        // 5. [수정됨] 인터뷰 기록 로직 (Firebase Firestore 연동)
+        // =================================================================
+        const interviewForm = $('#interview-form');
+        const interviewBoard = $('#interview-board');
+        const interviewStatus = $('#interview-status');
+        
+        // [A] 실시간 데이터 로드 (onSnapshot)
+        function loadInterviews() {
+            // 'interviews' 공용 컬렉션을 구독
+            const q = query(collection(db, "interviews"), orderBy("date", "desc"));
+            
+            onSnapshot(q, (snapshot) => {
                 interviewBoard.innerHTML = ''; 
-                if (interviews.length === 0) {
+                if (snapshot.empty) {
                     interviewBoard.innerHTML = '<p style="text-align: center; color: var(--subtext-color);">아직 기록된 인터뷰가 없습니다.</p>';
                     return;
                 }
                 
-                const sortedInterviews = interviews.sort((a, b) => new Date(b.date) - new Date(a.date));
-                
-                sortedInterviews.forEach(item => {
+                snapshot.forEach((docSnap) => {
+                    const item = docSnap.data();
                     const card = document.createElement('div');
-                    card.className = 'interview-card'; // 'expanded' 클래스는 클릭 시 추가/제거
-                    card.dataset.id = item.id;
+                    card.className = 'interview-card';
+                    card.dataset.id = docSnap.id; // Firestore 문서 ID
                     
-                    // HTML 구조를 토글(아코디언) 형태로 변경
                     card.innerHTML = `
                         <div class="interview-card-toggle" role="button" tabindex="0">
                             <h4>${item.company}</h4>
@@ -531,77 +495,81 @@
                                 <span><strong>면접 단계:</strong> ${item.stage}</span>
                             </div>
                             <strong>주요 질의응답</strong>
-                            <p>${item.questions.replace(/\n/g, '<br>') || '내용 없음'}</p>
+                            <p>${item.questions ? item.questions.replace(/\n/g, '<br>') : '내용 없음'}</p>
                             <strong>개인적인 소감 / 피드백</strong>
-                            <p>${item.review.replace(/\n/g, '<br>') || '내용 없음'}</p>
+                            <p>${item.review ? item.review.replace(/\n/g, '<br>') : '내용 없음'}</p>
                             <button class="delete-interview-btn">기록 삭제</button>
                         </div>
                     `;
                     interviewBoard.appendChild(card);
                 });
+            });
+        }
+
+        // [B] 데이터 저장 (addDoc)
+        interviewForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); 
+            
+            const company = $('#interview-company').value.trim();
+            const date = $('#interview-date').value;
+            const position = $('#interview-position').value.trim();
+            const stage = $('#interview-stage').value;
+            const questions = $('#interview-questions').value.trim();
+            const review = $('#interview-review').value.trim();
+
+            if (!company || !date || !position || !stage) {
+                interviewStatus.textContent = '회사명, 면접일, 지원 직무, 면접 단계는 필수입니다.';
+                interviewStatus.className = 'form-status error';
+                return;
             }
 
-            function saveInterviews() {
-                localStorage.setItem('interviews', JSON.stringify(interviews));
-            }
+            const newInterview = {
+                company, date, position, stage, questions, review,
+                createdAt: new Date() // 정렬을 위한 생성 시간
+            };
 
-            interviewForm.addEventListener('submit', (e) => {
-                e.preventDefault(); 
-                
-                const company = $('#interview-company').value.trim();
-                const date = $('#interview-date').value;
-                const position = $('#interview-position').value.trim();
-                const stage = $('#interview-stage').value;
-                const questions = $('#interview-questions').value.trim();
-                const review = $('#interview-review').value.trim();
-
-                if (!company || !date || !position || !stage) {
-                    interviewStatus.textContent = '회사명, 면접일, 지원 직무, 면접 단계는 필수입니다.';
-                    interviewStatus.className = 'form-status error';
-                    return;
-                }
-
-                const newInterview = {
-                    id: Date.now().toString(), 
-                    company, date, position, stage, questions, review
-                };
-
-                interviews.push(newInterview);
-                saveInterviews();
-                renderInterviews();
-
+            try {
+                await addDoc(collection(db, "interviews"), newInterview);
                 interviewForm.reset();
-                interviewStatus.textContent = '인터뷰 기록이 성공적으로 추가되었습니다.';
+                interviewStatus.textContent = '인터뷰 기록이 성공적으로 공유되었습니다.';
                 interviewStatus.className = 'form-status success';
                 setTimeout(() => { interviewStatus.textContent = ''; }, 3000);
-            });
-
-            // [수정됨] 클릭 이벤트 핸들러 (이벤트 위임 - 토글 및 삭제 통합)
-            interviewBoard.addEventListener('click', (e) => {
-                // 삭제 버튼 클릭 시
-                const deleteBtn = e.target.closest('.delete-interview-btn');
-                if (deleteBtn) {
-                    const card = deleteBtn.closest('.interview-card');
-                    const idToDelete = card.dataset.id;
-                    
-                    if (confirm('이 기록을 정말 삭제하시겠습니까?')) {
-                        interviews = interviews.filter(item => item.id !== idToDelete);
-                        saveInterviews();
-                        renderInterviews();
-                    }
-                    return; // 삭제 로직 후 종료
-                }
-
-                // 토글 영역 클릭 시
-                const toggle = e.target.closest('.interview-card-toggle');
-                if (toggle) {
-                    const card = toggle.closest('.interview-card');
-                    card.classList.toggle('expanded');
-                }
-            });
-
-            renderInterviews();
+            } catch (err) {
+                console.error(err);
+                interviewStatus.textContent = '저장 실패: ' + err.message;
+                interviewStatus.className = 'form-status error';
+            }
         });
+
+        // [C] 데이터 삭제 및 토글 (이벤트 위임)
+        interviewBoard.addEventListener('click', async (e) => {
+            // 삭제 버튼 클릭 시
+            const deleteBtn = e.target.closest('.delete-interview-btn');
+            if (deleteBtn) {
+                const card = deleteBtn.closest('.interview-card');
+                const idToDelete = card.dataset.id;
+                
+                if (confirm('이 기록을 정말 삭제하시겠습니까? (모두에게서 삭제됩니다)')) {
+                    try {
+                        await deleteDoc(doc(db, "interviews", idToDelete));
+                        // 성공하면 onSnapshot이 자동으로 화면 갱신함
+                    } catch (err) {
+                        alert('삭제 실패: ' + err.message);
+                    }
+                }
+                return; 
+            }
+
+            // 토글 영역 클릭 시
+            const toggle = e.target.closest('.interview-card-toggle');
+            if (toggle) {
+                const card = toggle.closest('.interview-card');
+                card.classList.toggle('expanded');
+            }
+        });
+
+        // 앱 시작 시 데이터 로딩 시작
+        loadInterviews();
     </script>
     
 </body>
