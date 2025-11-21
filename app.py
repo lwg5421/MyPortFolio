@@ -7,6 +7,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from requests.adapters import HTTPAdapter, Retry
 from dotenv import load_dotenv
+from lxml import etree  # lxml 라이브러리
 
 # ----------------------------
 # 로깅 설정
@@ -24,7 +25,8 @@ app = Flask(__name__)
 # === 환경변수 로드 및 검증 ===
 DART_API_KEY = os.getenv('DART_API_KEY')
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
-GEMINI_MODEL = os.getenv('GEMINI_MODEL', 'gemini-1.5-flash-latest') # 최신 모델을 기본값으로 사용
+# [수정됨] 님이 제안하신 2.5 flash 모델의 정식 풀네임으로 변경
+GEMINI_MODEL = os.getenv('GEMINI_MODEL', 'gemini-2.5-flash-preview-09-2025') 
 if not DART_API_KEY or not GEMINI_API_KEY:
     logger.error('환경변수 DART_API_KEY 또는 GEMINI_API_KEY가 설정되지 않았습니다.')
     raise RuntimeError('DART_API_KEY와 GEMINI_API_KEY 환경변수가 필요합니다.')
@@ -33,8 +35,9 @@ if not DART_API_KEY or not GEMINI_API_KEY:
 env_origins = os.getenv("ALLOWED_ORIGINS")
 ALLOWED_ORIGINS = (
     [o.strip() for o in env_origins.split(",")] if env_origins
-    else ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:5500', 'http://127.0.0.1:5500']
+    else ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:5500', 'http://1.2.3.4'] # 1.2.3.4는 임시
 )
+# Render에서 설정한 환경변수를 사용하도록 수정
 CORS(
     app,
     resources={r"/api/*": {"origins": ALLOWED_ORIGINS}},
@@ -50,8 +53,36 @@ retries = Retry(total=3, backoff_factor=1.5, status_forcelist=[429, 500, 502, 50
 session.mount('https://', HTTPAdapter(max_retries=retries))
 session.mount('http://', HTTPAdapter(max_retries=retries))
 
+# === CORPCODE.xml 로드 및 준비 ===
+CORP_XML_PATH = 'CORPCODE.xml'
+corp_name_map = {} # 기업명 -> 기업코드로 빠르게 찾기 위한 딕셔너리(지도)
+
+try:
+    if os.path.exists(CORP_XML_PATH):
+        logger.info(f"{CORP_XML_PATH} 파일 로드를 시작합니다...")
+        context = etree.iterparse(CORP_XML_PATH, events=('end',), tag='list')
+        for event, elem in context:
+            corp_name = elem.findtext('corp_name')
+            corp_code = elem.findtext('corp_code')
+            if corp_name and corp_code:
+                clean_name = corp_name.replace('(주)', '').strip()
+                corp_name_map[clean_name] = {
+                    "code": corp_code,
+                    "original_name": corp_name
+                }
+            elem.clear() 
+        del context
+        logger.info(f"성공: {len(corp_name_map)}개의 기업 정보를 로드했습니다.")
+    else:
+        logger.warning(f"{CORP_XML_PATH} 파일이 없습니다. /api/search가 작동하지 않습니다.")
+        logger.warning(f"Render의 Build Command에 'curl -L [XML링크] -o CORPCODE.xml'가 있는지 확인하세요.")
+except Exception as e:
+    logger.error(f"{CORP_XML_PATH} 로드 중 오류 발생: {e}", exc_info=True)
+
+
 # === API 엔드포인트 ===
 DART_API_URL = 'https://opendart.fss.or.kr/api'
+# [수정됨] v1beta 주소로 복구 (고급 기능을 쓰려면 v1beta가 맞습니다)
 GEMINI_URL_BASE = 'https://generativelanguage.googleapis.com/v1beta/models'
 
 
@@ -62,6 +93,32 @@ def dart_get(path: str, params: dict, timeout: int = 10):
     response = session.get(url, params=params, timeout=timeout)
     response.raise_for_status()
     return response.json()
+
+
+# === 기업명으로 코드 검색 API ===
+@app.get('/api/search')
+def search_company_code():
+    """기업명으로 기업 코드 검색"""
+    company_name = request.args.get('name')
+    if not company_name:
+        return jsonify({'status': '400', 'message': '검색할 기업명(name)이 필요합니다.'}), 400
+
+    if not corp_name_map:
+         return jsonify({'status': '500', 'message': '서버에 기업 목록(XML)이 로드되지 않았습니다.'}), 500
+
+    clean_query = company_name.replace('(주)', '').strip()
+    result = corp_name_map.get(clean_query)
+    
+    if result:
+        logger.info(f"검색 성공: '{company_name}' -> '{result['code']}'")
+        return jsonify({
+            'status': '000',
+            'corp_code': result['code'],
+            'corp_name': result['original_name']
+        })
+    else:
+        logger.warning(f"검색 실패: '{company_name}'에 해당하는 기업을 찾을 수 없습니다.")
+        return jsonify({'status': '404', 'message': '일치하는 기업을 찾을 수 없습니다.'}), 404
 
 
 @app.get('/api/company')
@@ -88,11 +145,9 @@ def get_company_finance():
     if not corp_code or not year:
         return jsonify({'status': '400', 'message': '기업 코드와 사업 연도가 필요합니다.'}), 400
     try:
-        # 1. 연결재무제표(CFS) 시도
         params = {'corp_code': corp_code, 'bsns_year': year, 'reprt_code': reprt_code, 'fs_div': 'CFS'}
         data = dart_get('fnlttSinglAcntAll.json', params)
         
-        # 2. 연결재무제표 결과가 없으면 별도재무제표(OFS)로 폴백
         if data.get('status') != '000' or not data.get('list'):
             logger.info(f"{corp_code}의 연결재무제표가 없어 별도재무제표를 조회합니다.")
             params['fs_div'] = 'OFS'
@@ -109,29 +164,19 @@ def extract_first_json(text: str) -> str:
     if not text: return ''
     start = text.find('{')
     if start == -1: return ''
-    
-    depth = 0
-    in_string = False
-    escape = False
-    
+    depth, in_string, escape = 0, False, False
     for i in range(start, len(text)):
         char = text[i]
         if in_string:
-            if escape:
-                escape = False
-            elif char == '\\':
-                escape = True
-            elif char == '"':
-                in_string = False
+            if escape: escape = False
+            elif char == '\\': escape = True
+            elif char == '"': in_string = False
         else:
-            if char == '"':
-                in_string = True
-            elif char == '{':
-                depth += 1
+            if char == '"': in_string = True
+            elif char == '{': depth += 1
             elif char == '}':
                 depth -= 1
-                if depth == 0:
-                    return text[start:i+1]
+                if depth == 0: return text[start:i+1]
     return ''
 
 
@@ -148,6 +193,7 @@ def collect_all_texts(gemini_obj) -> str:
     return "\n".join(texts).strip()
 
 
+# [수정됨] v1beta API 스펙에 맞는 camelCase 문법으로 복구
 def call_gemini(prompt: str, model: str = None, timeout: int = 60):
     """Gemini API 호출 (v1beta generateContent)"""
     model = model or GEMINI_MODEL
@@ -162,9 +208,9 @@ def call_gemini(prompt: str, model: str = None, timeout: int = 60):
         "generationConfig": {
             "temperature": 0.3,
             "maxOutputTokens": 4096,
-            "responseMimeType": "application/json",
+            "responseMimeType": "application/json", # camelCase
         },
-        "systemInstruction": {
+        "systemInstruction": { # camelCase
             "parts": [{
                 "text": "You are a helpful assistant that generates company analysis data in JSON format. All textual content in the JSON values MUST be written in Korean."
             }]
@@ -225,7 +271,6 @@ def generate_qualitative_analysis():
 }
 """.strip()
     
-    # === [수정됨] 한국어 응답을 강제하는 프롬프트 ===
     prompt = (
         "당신은 DART 공시 정보를 기반으로 기업을 심층 분석하는 AI 애널리스트입니다.\n"
         f"분석 대상 기업은 '{company_name}({biz_area})'이며, 지원 직무는 '프론트엔드 개발자'입니다.\n"
@@ -258,9 +303,8 @@ def generate_qualitative_analysis():
                     return jsonify(json.loads(json_part))
         except json.JSONDecodeError as e:
             logger.warning(f"1차 Gemini 응답 JSON 파싱 실패: {e}\n원본: {text_content[:500]}")
-            # 파싱 실패 시 2차 복구 호출로 넘어감
 
-        # === 2차 복구 호출 (더욱 강력한 JSON 형식 및 한국어 강제 프롬프트) ===
+        # === 2차 복구 호출 ===
         logger.info("1차 분석 실패, JSON 형식 복구를 위한 2차 호출을 시도합니다.")
         repair_prompt = (
             "이전 API 응답이 유효한 JSON이 아닙니다. 아래 원본 텍스트를 분석하여 주어진 JSON 스키마에 맞는 '순수한 JSON 객체'로 복구해주세요.\n"
@@ -305,5 +349,4 @@ def generate_qualitative_analysis():
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', '5000'))
-
     app.run(host='0.0.0.0', port=port, debug=False)
